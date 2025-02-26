@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Modal</title>
+    <style>/* Settings Modal Styling */
+        #settings-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .settings-modal .modal-content {
+            background: #f8f9fb;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh; /* Limits height to avoid content overflow */
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow-y: auto; /* Enables vertical scrolling if needed */
+        }
+        
+        .settings-modal .close-button {
+            color: #000000; /* Blue close button */
+            float: right;
+            font-size: 24px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .settings-modal .close-button:hover {
+            color: #333;
+        }
+        
+        .settings-modal h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #004d40;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #004d40;
+            padding-bottom: 0.5rem;
+        }
+        
+        .settings-modal h2 {
+            font-size: 1.25rem;
+            color: #444;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .settings-modal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .settings-modal ul li {
+            margin: 0.6rem 0;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .settings-modal ul li a {
+            color: #0056b3;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease, background 0.3s ease;
+            display: block;
+            padding: 0.4rem;
+            border-radius: 4px;
+        }
+        
+        .settings-modal ul li a:hover {
+            color: #fff;
+            background: #00796b;
+            text-decoration: none;
+        }
+        
+        /* Apply Changes Button */
+        #apply-settings {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: #00796b;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        #apply-settings:hover {
+            background: #004d40;
+        }
+        
+        </style>
+</head>
+<body>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="modal settings-modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-settings-modal">&times;</span>
+        <h1>Settings</h1>
+
+        <div class="settings-options">
+            <h2>Customization</h2>
+            <ul>
+                <li><a href="#" id="theme-settings">Theme Customization</a></li>
+                <li><a href="#" id="notification-preferences">Notification Preferences</a></li>
+                <li><a href="#" id="accessibility-options">Accessibility Options</a></li>
+            </ul>
+
+            <h2>Privacy & Security</h2>
+            <ul>
+                <li><a href="#" id="privacy-settings">Privacy Settings</a></li>
+                <li><a href="#" id="security-settings">Security Settings</a></li>
+                <li><a href="#" id="account-deletion">Account Management</a></li>
+            </ul>
+
+            <h2>Personalization</h2>
+            <ul>
+                <li><a href="#" id="investment-preferences">Investment Preferences</a></li>
+            </ul>
+
+            <h2>General</h2>
+            <ul>
+                <li><a href="#" id="language-settings">Language and Region</a></li>
+                <li><a href="#" id="data-backup">Data Backup and Restore</a></li>
+                <li><a href="#" id="data-export">Data Export</a></li>
+            </ul>
+
+            <h2>Support</h2>
+            <ul>
+                <li><a href="#" id="help-center">Help Center</a></li>
+                <li><a href="#" id="system-notifications">System Notifications</a></li>
+            </ul>
+        </div>
+
+        <button id="apply-settings" class="submit-button">Apply Changes</button>
+    </div>
+    </div>
+
+<script>
+    // Wait for the DOM to load before executing the script
+    document.addEventListener("DOMContentLoaded", function() {
+        const settingsButton = document.getElementById("settings");
+        const settingsModal = document.getElementById("settings-modal");
+        const closeButton = document.getElementById("close-settings-modal");
+        const applyButton = document.getElementById("apply-settings");
+
+        // Open the settings modal when the settings button is clicked
+        settingsButton.addEventListener("click", () => {
+            settingsModal.style.display = "flex"; // Show the modal
+        });
+
+        // Close the settings modal when the close button (X) is clicked
+        closeButton.addEventListener("click", () => {
+            settingsModal.style.display = "none"; // Hide the modal
+        });
+
+        // Close the settings modal if the user clicks outside of the modal content
+        window.addEventListener("click", (event) => {
+            if (event.target === settingsModal) {
+                settingsModal.style.display = "none"; // Hide the modal if the background is clicked
+            }
+        });
+
+        // Apply settings when the apply button is clicked
+        applyButton.addEventListener("click", () => {
+            console.log("Settings applied!"); // Placeholder action
+            settingsModal.style.display = "none"; // Close the modal after applying changes
+        });
+    });
+</script>
+
+</body>
+</html>

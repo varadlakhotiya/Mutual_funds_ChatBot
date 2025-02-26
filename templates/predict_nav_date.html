@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAV Prediction for {{ selected_fund }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <h1>{{ selected_fund }} - NAV Prediction</h1>
+      </div>
+    </div>
+  </header>
+
+  <section class="result-section">
+    <div class="result-container">
+      <h2>Predicted NAV for {{ prediction_date }}</h2>
+      <p><strong>Fund Name:</strong> {{ selected_fund }}</p>
+      <p><strong>Predicted NAV:</strong> {{ predicted_nav }}</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Mutual Fund Prediction | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

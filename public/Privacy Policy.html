@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - InvestSmart Advisors</title>
+    <style>/* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Privacy Container */
+        .privacy-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .privacy-container h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a; /* Dark blue header */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Section Title Styling */
+        .privacy-section {
+            margin-bottom: 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .privacy-section:hover {
+            background-color: #e0f2fe;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Light shadow on hover */
+        }
+        
+        .privacy-section h2 {
+            font-size: 1.4rem;
+            color: #0c4a6e;
+            padding: 0.8rem 1rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* Toggle Arrow */
+        .toggle-arrow {
+            font-size: 1rem;
+            color: #1e3a8a;
+        }
+        
+       /* Privacy Content */
+.privacy-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+    color: #4b5563;
+    border-top: 1px solid #d1d5db;
+    padding: 0 1.5rem;
+    opacity: 0;
+}
+
+/* Styling for Paragraph and List Items */
+.privacy-content p {
+    margin-top: 0.5rem;
+    color: #374151;
+}
+
+.privacy-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.privacy-content ul li {
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+}
+
+/* Active Section Styling */
+.privacy-section.active .privacy-content {
+    opacity: 1;
+    padding-bottom: 1rem;
+}
+
+        
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            color: #1e3a8a;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 1rem;
+            display: block;
+            font-weight: bold;
+        }
+        
+        .back-button:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        
+        /* Transition Effects */
+        .privacy-content,
+        .privacy-section h2,
+        .back-button {
+            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .privacy-section:hover .toggle-arrow {
+            transform: rotate(180deg); /* Rotate arrow on hover */
+        }
+        </style>
+</head>
+<body>
+
+    <div class="privacy-container">
+        <h1>Privacy Policy</h1>
+        <p>At InvestSmart Advisors, we value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data.</p>
+
+        <!-- Privacy Sections -->
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>1. Information We Collect <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>We collect information you provide directly to us, such as when you create an account, update your profile, or communicate with us. This includes:</p>
+                <ul>
+                    <li>Personal identification information (Name, Email address, etc.)</li>
+                    <li>Investment preferences and goals</li>
+                    <li>Transaction data and historical activity</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>2. How We Use Your Information <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>We use your information to provide, personalize, and improve our services, such as:</p>
+                <ul>
+                    <li>Generating tailored investment recommendations</li>
+                    <li>Sending important updates and account-related notifications</li>
+                    <li>Analyzing usage to improve the user experience</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>3. Data Sharing and Disclosure <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>We may share your data with trusted partners for the sole purpose of providing better services. Your data is never sold to third parties. Examples include:</p>
+                <ul>
+                    <li>Service providers assisting in analytics and support</li>
+                    <li>Financial institutions and advisors with your consent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>4. Data Security <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>We implement industry-standard security measures to protect your information from unauthorized access. These measures include encryption, secure servers, and regular audits.</p>
+            </div>
+        </div>
+
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>5. Your Rights and Choices <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>You have the right to access, correct, or delete your personal information. You can also opt-out of certain data uses by adjusting your account settings or contacting us directly.</p>
+            </div>
+        </div>
+
+        <div class="privacy-section" onclick="toggleSection(this)">
+            <h2>6. Changes to This Policy <span class="toggle-arrow">▼</span></h2>
+            <div class="privacy-content">
+                <p>We may update this policy periodically to reflect changes in our practices. We encourage you to review the policy regularly. We will notify you of any significant updates.</p>
+            </div>
+        </div>
+        <a href="Extra.html" class="back-button">← Back to Homepage</a>
+    </div>
+
+    <script>// Function to toggle content visibility with smooth transition
+        function toggleSection(section) {
+            const content = section.querySelector(".privacy-content");
+            const arrow = section.querySelector(".toggle-arrow");
+        
+            // Toggle the 'active' class to change appearance
+            section.classList.toggle("active");
+        
+            if (section.classList.contains("active")) {
+                // Set max-height to content's scroll height for smooth expansion
+                content.style.maxHeight = content.scrollHeight + "px";
+                arrow.textContent = "▲"; // Up arrow for expanded state
+            } else {
+                // Collapse by setting max-height to 0
+                content.style.maxHeight = 0;
+                arrow.textContent = "▼"; // Down arrow for collapsed state
+            }
+        }
+        
+        // Initialize sections to be hidden
+        document.querySelectorAll(".privacy-section").forEach(section => {
+            section.querySelector(".privacy-content").style.maxHeight = 0;
+        });
+        
+        </script>
+
+</body>
+</html>

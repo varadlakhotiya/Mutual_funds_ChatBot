@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutual Fund NAV Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="icon" href="images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <h1>Mutual Fund NAV Prediction</h1>
+      </div>
+      <nav>
+        <a href="#" onclick="showPopup('predict')">Select Fund for NAV Prediction</a>
+        <a href="#" onclick="showPopup('compare')">Compare Fund Performance</a>
+        <a href="#" onclick="showPopup('portfolio')">Portfolio Builder</a>
+        <a href="#" onclick="showPopup('ranking')">Fund Ranking</a>
+        <a href="#" onclick="showPopup('predict_by_date')">Predict NAV for Date</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="info-section" id="infoSection">
+    <h2>How This Website Works</h2>
+    <p>Welcome to our Mutual Fund NAV Prediction platform! Here's how the website works:</p>
+    <p><strong>1. NAV Prediction:</strong> We use advanced machine learning algorithms to predict the future NAVs of different mutual funds based on historical data.</p>
+    <p><strong>2. Compare Fund Performance:</strong> Compare the predicted performance of multiple funds and make informed investment decisions.</p>
+    <p><strong>3. Portfolio Builder:</strong> You can analyze and optimize your portfolio by selecting multiple funds, allowing you to balance risk and returns.</p>
+    <p><strong>4. Fund Ranking:</strong> View rankings of different funds based on their predicted returns and risk profiles.</p>
+    <p>Our platform uses LSTM neural networks and other advanced algorithms to provide highly accurate predictions and insights into mutual fund performance.</p>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+  <!-- Pop-up sections -->
+  <section id="predict" class="popup-section">
+    <div class="form-container">
+      <h2>Select Fund for NAV Prediction</h2>
+      <form method="POST" action="{{ url_for('predict_nav_view') }}">
+        <div class="form-group">
+          <label for="fund_name">Select Fund:</label>
+          <select name="fund_name" id="fund_name" required>
+            {% for fund in funds %}
+              <option value="{{ fund }}">{{ fund }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prediction_window">Prediction Window (Months):</label>
+          <input type="number" name="prediction_window" id="prediction_window" min="1" value="10" required>
+        </div>
+        <button type="submit" class="submit-btn">Predict NAV</button>
+      </form>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </section>
+
+  <section id="predict_by_date" class="popup-section">
+    <div class="form-container">
+      <h2>Predict NAV for a Specific Date</h2>
+      <form method="POST" action="{{ url_for('predict_nav_for_date') }}">
+        <div class="form-group">
+          <label for="fund_name">Select Fund:</label>
+          <select name="fund_name" id="fund_name" required>
+            {% for fund in funds %}
+              <option value="{{ fund }}">{{ fund }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prediction_date">Prediction Date:</label>
+          <input type="date" name="prediction_date" id="prediction_date" required>
+        </div>
+        <button type="submit" class="submit-btn">Predict NAV</button>
+      </form>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </section>
+  
+
+  <section id="compare" class="popup-section">
+    <div class="form-container">
+      <h2>Compare Fund Performance</h2>
+      <form method="POST" action="{{ url_for('compare_performance') }}">
+        <div class="form-group">
+          <label for="funds">Select Funds:</label>
+          <select name="funds" id="funds" multiple required>
+            {% for fund in funds %}
+              <option value="{{ fund }}">{{ fund }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prediction_window">Prediction Window (Months):</label>
+          <input type="number" name="prediction_window" id="prediction_window" min="1" value="10" required>
+        </div>
+        <button type="submit" class="submit-btn">Compare Performance</button>
+      </form>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </section>
+
+  <section id="portfolio" class="popup-section">
+    <div class="form-container">
+      <h2>Portfolio Builder</h2>
+      <form method="POST" action="{{ url_for('portfolio_analysis_view') }}">
+        <div class="form-group">
+          <label for="funds">Select Funds:</label>
+          <select name="funds" id="funds" multiple required>
+            {% for fund in funds %}
+              <option value="{{ fund }}">{{ fund }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prediction_window">Prediction Window (Months):</label>
+          <input type="number" name="prediction_window" id="prediction_window" min="1" value="10" required>
+        </div>
+        <button type="submit" class="submit-btn">Analyze Portfolio</button>
+      </form>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </section>
+
+  <section id="ranking" class="popup-section">
+    <div class="form-container">
+      <h2>Fund Ranking</h2>
+      <a href="{{ url_for('fund_ranking_view') }}" class="cta-btn">View Fund Ranking Based on Returns and Risk</a>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Mutual Fund Prediction | All Rights Reserved</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  <script>
+    function showPopup(section) {
+      document.getElementById('infoSection').style.display = 'none';
+      document.querySelectorAll('.popup-section').forEach(function(popup) {
+        popup.style.display = 'none';
+      });
+      document.getElementById(section).style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closePopup() {
+      document.getElementById('infoSection').style.display = 'block';
+      document.querySelectorAll('.popup-section').forEach(function(popup) {
+        popup.style.display = 'none';
+      });
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

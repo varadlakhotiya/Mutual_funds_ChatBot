@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Fund Portfolio</title>
+    <style>
+        /* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    background-color: #0056a3;
+    color: #fff;
+    padding: 20px 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* Main Section */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Intro Section */
+#intro h2 {
+    color: #0056a3;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+#intro p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Questions Section */
+#questions h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #0056a3;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #0056a3;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #003f7a;
+}
+
+/* Results Section */
+#results h3 {
+    font-size: 1.6rem;
+    margin-top: 30px;
+    color: #0056a3;
+}
+
+#portfolio-output {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    #intro h2,
+    #questions h3,
+    #results h3 {
+        font-size: 1.4rem;
+    }
+
+    form select,
+    form button {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Optimized Fund Portfolio</h1>
+    </header>
+    <main>
+        <section id="intro">
+            <h2>Welcome to Optimized Fund Portfolio</h2>
+            <p>This tool helps you optimize your investment portfolio using Genetic Algorithm (GA).</p>
+        </section>
+
+        <section id="questions">
+            <h3>Tell Us About Your Investment Goals</h3>
+            <form id="userForm">
+                <label for="risk-tolerance">Risk Tolerance:</label>
+                <select id="risk-tolerance">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select><br><br>
+
+                <label for="investment-duration">Investment Duration:</label>
+                <select id="investment-duration">
+                    <option value="short">Short-term</option>
+                    <option value="medium">Medium-term</option>
+                    <option value="long">Long-term</option>
+                </select><br><br>
+
+                <label for="expected-returns">Expected Returns:</label>
+                <select id="expected-returns">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select><br><br>
+
+                <button type="button" onclick="optimizePortfolio()">Get Recommendations</button>
+            </form>
+        </section>
+
+        <section id="results">
+            <h3>Recommended Fund Portfolio</h3>
+            <div id="portfolio-output"></div>
+        </section>
+    </main>
+
+
+    <script>
+        // script.js
+
+function optimizePortfolio() {
+    // Get user input
+    const riskTolerance = document.getElementById('risk-tolerance').value;
+    const investmentDuration = document.getElementById('investment-duration').value;
+    const expectedReturns = document.getElementById('expected-returns').value;
+
+    // Validate input (ensure user has made a selection)
+    if (!riskTolerance || !investmentDuration || !expectedReturns) {
+        alert("Please answer all questions.");
+        return;
+    }
+
+    // Placeholder for backend interaction
+    // You would typically send these values to your backend API
+    // and get the optimized fund recommendations.
+    // For example:
+    // fetch('your-api-endpoint', {
+    //    method: 'POST',
+    //    body: JSON.stringify({ riskTolerance, investmentDuration, expectedReturns }),
+    //    headers: {
+    //        'Content-Type': 'application/json',
+    //    },
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //    displayRecommendations(data);
+    // })
+    // .catch(error => console.error('Error:', error));
+
+    // Mocking an API response for demonstration
+    const mockData = {
+        funds: [
+            { name: "Fund A", recommendation: "High Risk, High Return" },
+            { name: "Fund B", recommendation: "Medium Risk, Medium Return" },
+        ],
+    };
+
+    displayRecommendations(mockData);
+}
+
+function displayRecommendations(data) {
+    const outputDiv = document.getElementById('portfolio-output');
+    outputDiv.innerHTML = '';
+
+    data.funds.forEach(fund => {
+        const fundDiv = document.createElement('div');
+        fundDiv.innerHTML = `<strong>${fund.name}:</strong> ${fund.recommendation}`;
+        outputDiv.appendChild(fundDiv);
+    });
+}
+
+    </script>
+</body>
+</html>

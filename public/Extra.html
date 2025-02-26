@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Funds Chatbot</title>
+    <style>
+        /* General Layout and Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+/* General Layout */
+#home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between elements to push footer down */
+    min-height: 100vh; /* Ensure full viewport height */
+    background: linear-gradient(135deg, #002b5e, #0077b6);
+    color: #ffffff;
+}
+
+/* Hero Section */
+#hero {
+    text-align: center;
+    padding: 2em;
+    color: #ffffff;
+}
+
+#hero h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+#hero h3 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 1.5em;
+}
+
+.hero-avatar {
+    max-width: 120px; /* Maximum width */
+    width: 100%; /* Responsive width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 1%; /* Circular shape */
+    margin-top: 1em;
+    border: 1px solid transparent; /* Initial border */
+    background-image: linear-gradient(145deg, #ffffff, #e6e6e6); /* Gradient background */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Smooth transitions */
+    outline: 2px solid rgba(255, 255, 255, 0.6); /* Light outline for added emphasis */
+    position: relative; /* Positioning for pseudo-elements */
+    overflow: hidden; /* Ensure border-radius is applied to content */
+}
+
+.hero-avatar::before {
+    content: ""; /* Create a pseudo-element for a shimmer effect */
+    position: absolute;
+    top: -30%; /* Position it above the avatar */
+    left: -30%; /* Position it to the left */
+    width: 160%; /* Extend to cover the avatar */
+    height: 160%; /* Extend to cover the avatar */
+    background: rgba(255, 255, 255, 0.5); /* White with some transparency */
+    border-radius: 50%; /* Keep it circular */
+    filter: blur(30px); /* Blur for a soft glow effect */
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.5s ease; /* Smooth transition for hover effect */
+}
+
+.hero-avatar:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); /* Increase shadow on hover for effect */
+    border: 5px solid #3498db; /* Change border color on hover */
+}
+
+.hero-avatar:hover::before {
+    opacity: 1; /* Show shimmer effect on hover */
+}
+
+/* Optional: Add a border radius to the parent container */
+.avatar-container {
+    display: flex; /* Center the avatar */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 15px; /* Padding around the avatar */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background for a softer look */
+    border-radius: 20px; /* Rounded corners for the container */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Strong shadow for the container */
+    backdrop-filter: blur(5px); /* Background blur for a modern touch */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.avatar-container:hover {
+    background-color: rgba(255, 255, 255, 1); /* Solid background on hover */
+}
+
+
+/* Container for Action Buttons */
+.modal-action-buttons {
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center buttons horizontally */
+    margin-bottom: 10px; /* Reduced space below action buttons */
+    margin-top: 10px; /* Reduced margin to push buttons upwards */
+}
+
+/* Action Button Styles */
+.action-btn {
+    background-color: #0077b6; /* Primary color */
+    color: #ffffff; /* White text */
+    padding: 10px 20px; /* Sufficient padding for comfort */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-weight: bold; /* Bold text */
+    font-size: 16px; /* Font size for readability */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transition effects */
+    width: 120px; /* Fixed width for buttons */
+    display: inline-block; /* Inline-block for proper spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    margin: 10px 5px 0; /* Reduced top margin to move buttons upwards */
+}
+
+/* Hover and Focus Effects */
+.action-btn:hover,
+.action-btn:focus {
+    background-color: #005f8f; /* Darker background on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Info Button Container */
+.info-container {
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center buttons horizontally */
+    margin-top: 5px; /* Reduced space above info buttons */
+}
+
+/* Info Button Styles */
+.info-btn {
+    background-color: #ffffff; /* White background */
+    color: #0077b6; /* Primary color */
+    padding: 10px 20px; /* Consistent padding */
+    border: 2px solid #0077b6; /* Primary color border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-weight: bold; /* Bold text */
+    font-size: 16px; /* Font size for readability */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Transition effects */
+    width: 250px; /* Fixed width for buttons */
+    margin: 10px 5px 0; /* Reduced margin to push buttons upwards */
+    display: inline-block; /* Inline-block for proper spacing */
+}
+
+/* Hover and Focus Effects for Info Buttons */
+.info-btn:hover,
+.info-btn:focus {
+    background-color: #0077b6; /* Change background on hover */
+    color: #ffffff; /* White text on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Extra Buttons Container */
+.extra-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Reduced space between info and extra buttons */
+}
+
+/* Extra Button Styles */
+.extra-btn {
+    background-color: #ffffff;
+    color: #0077b6;
+    padding: 10px 15px;
+    border: 2px solid #0077b6;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px; /* Slightly larger font */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    width: 250px;
+    margin: 10px 15px; /* Reduced margin between buttons */
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover and Focus Effects for Extra Buttons */
+.extra-btn:hover,
+.extra-btn:focus {
+    background-color: #0077b6;
+    color: #ffffff;
+    transform: translateY(-3px); /* Slightly stronger lift effect */
+}
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+    .modal-action-buttons,
+    .info-container,
+    .extra-buttons-container {
+        flex-direction: column; /* Stack buttons on small screens */
+    }
+
+    .action-btn,
+    .info-btn,
+    .extra-btn {
+        width: 100%; /* Full width for buttons on smaller screens */
+        margin-bottom: 10px; /* Space between buttons */
+    }
+}
+
+
+.moving-tips-section {
+    overflow: hidden; /* Prevent overflow */
+    position: relative; /* Positioning for animation */
+    padding: 5px 0; /* Reduced vertical padding */
+    background-color: #f0f8ff; /* Light background for contrast */
+    border: 2px solid #007bff; /* Border for definition */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin: 10px 0; /* Reduced spacing around the section */
+}
+
+.moving-tips {
+    display: flex; /* Use flex for alignment */
+    white-space: nowrap; /* Prevent text wrapping */
+    animation: scroll 12s linear infinite; /* Shortened animation duration */
+    font-family: 'Arial', sans-serif; /* Font family */
+    font-weight: 500; /* Font weight */
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0); /* Start from 0 */
+    }
+    100% {
+        transform: translateX(-50%); /* Move left by 50% */
+    }
+}
+
+.moving-tips p {
+    font-size: 1.2em; /* Slightly smaller font size */
+    color: #007bff; /* Color of the text */
+    margin: 0; /* Remove default margin */
+    padding: 0 15px; /* Reduced padding for tighter spacing */
+}
+
+/* Optional: Adding a hover effect */
+.moving-tips p:hover {
+    color: #0056b3; /* Darker shade on hover */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+
+/* Modal Base Styles */
+.registration-modal, .login-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    overflow: auto;
+}
+
+/* Modal Content Styling */
+.registration-modal-content, .login-modal-content {
+    background: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button */
+.registration-close-btn, .login-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.registration-close-btn:hover, .login-close-btn:hover {
+    color: #ff6b6b;
+}
+
+/* Headings */
+.registration-modal-content h2, .login-modal-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* Paragraph */
+.registration-modal-content p, .login-modal-content p {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+/* Input Fields */
+.registration-modal-content input, .login-modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.registration-modal-content input:focus, .login-modal-content input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Buttons */
+.registration-submit-btn, .login-submit-btn {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.registration-submit-btn:hover, .login-submit-btn:hover {
+    background: #0056b3;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 500px) {
+    .registration-modal-content, .login-modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .registration-close-btn, .login-close-btn {
+        font-size: 20px;
+    }
+}
+
+
+
+/* Modal Overlay Styles */
+#features-modal.features-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Content Styles */
+#features-modal .features-modal-content {
+    position: relative;
+    max-width: 600px;
+    margin: 5% auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s ease;
+    overflow-y: auto;
+    max-height: 80vh; /* Allows scrolling when content is too long */
+}
+
+/* Modal Header Styles */
+#features-modal .features-modal-content h2 {
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Paragraph and Text Styles */
+#features-modal .features-modal-paragraph {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Close Button Styles */
+#close-features-modal.features-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#close-features-modal.features-close-btn:hover {
+    color: #2c3e50;
+}
+
+/* List Styles */
+#features-modal .features-modal-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+#features-modal .features-modal-list-item {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+#features-modal .features-modal-list-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #3498db;
+    font-size: 18px;
+}
+
+/* Blockquote Styles */
+#features-modal blockquote {
+    font-size: 16px;
+    color: #7f8c8d;
+    border-left: 4px solid #3498db;
+    padding-left: 15px;
+    margin: 10px 0;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Secondary Header Styles */
+#features-modal h3 {
+    font-size: 24px;
+    color: #3498db;
+    text-align: center;
+    margin: 20px 0 10px;
+    font-weight: 600;
+}
+
+/* Button Styles */
+#start-chat.start-btn {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px auto 0;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+#start-chat.start-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal Overlay Styles */
+#chat-preview-modal.chat-preview-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Content Styles */
+#chat-preview-modal .chat-preview-modal-content {
+    position: relative;
+    max-width: 600px;
+    margin: 5% auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s ease;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+/* Modal Header Styles */
+#chat-preview-modal .chat-preview-modal-content h2 {
+    font-size: 28px;
+    color: #34495e;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Close Button Styles */
+#close-chat-preview-modal.chat-preview-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#close-chat-preview-modal.chat-preview-close-btn:hover {
+    color: #2c3e50;
+}
+
+/* Message Container Styles */
+#chat-preview-modal .message-container {
+    padding: 20px;
+    background-color: #f1f1f1; /* Softened background color for better contrast */
+    border-radius: 12px; /* Slightly increased border radius for a softer look */
+    margin-bottom: 20px;
+    max-height: 350px; /* Increased max-height for more content visibility */
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Added subtle shadow for depth */
+}
+
+/* Chat Message Styles */
+#chat-preview-modal .chat-message {
+    padding: 12px 18px; /* Slightly adjusted padding for better spacing */
+    border-radius: 10px; /* Increased border radius for a more modern look */
+    margin-bottom: 15px; /* Reduced margin for better spacing between messages */
+    line-height: 1.6; /* Increased line height for improved readability */
+    font-size: 17px; /* Increased font size for better legibility */
+}
+
+/* User Message Styles */
+#chat-preview-modal .user-message {
+    background-color: #d1e7ff; /* Softer blue for user messages */
+    color: #003366; /* Darker text for better contrast */
+    text-align: right; /* Right-aligned for user messages */
+    border-left: 5px solid #007bb6; /* Slightly thicker border for emphasis */
+}
+
+/* Chatbot Message Styles */
+#chat-preview-modal .chatbot-message {
+    background-color: #ffe5e5; /* Softer red for chatbot messages */
+    color: #9b0000; /* Darker text for better contrast */
+    text-align: left; /* Left-aligned for chatbot messages */
+    border-left: 5px solid #c0392b; /* Slightly thicker border for emphasis */
+}
+
+/* Chat Message Strong Styles */
+#chat-preview-modal .chat-message strong {
+    font-weight: 700; /* Increased font weight for stronger emphasis */
+    color: #333; /* Darker color for better visibility */
+}
+
+
+/* Secondary Header Styles */
+#chat-preview-modal h3 {
+    font-size: 24px;
+    color: #3498db;
+    text-align: center;
+    margin: 20px 0 10px;
+    font-weight: 600;
+}
+
+/* List Styles */
+#chat-preview-modal ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#chat-preview-modal ul li {
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Button Styles */
+#chat-preview-button.start-btn {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px auto 0;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+#chat-preview-button.start-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+/* Footer */
+#footer {
+    background-color: #003049;
+    padding: 1em; /* Reduced padding */
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.8rem; /* Reduced font size */
+    margin-top: auto; /* Pushes footer to the end of the page if there's extra space */
+}
+
+.footer-content p {
+    margin-bottom: 0.5em; /* Reduced margin between paragraphs */
+}
+
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 0.3em; /* Reduced margin between links */
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #0077b6;
+}
+
+.footer-social {
+    margin: 0.5em 0; /* Reduced margin for social icons */
+}
+
+.social-icon img {
+    width: 25px; /* Reduced icon size */
+    margin: 0 0.3em; /* Reduced margin between icons */
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover img {
+    transform: scale(1.1);
+}
+
+
+/* Subscribe Link */
+#subscribe-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#subscribe-link:hover {
+    color: #0056b3;
+}
+
+/* Newsletter Modal Background */
+#newsletter-signup {
+    display: none; /* Initially hidden */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    overflow: auto;
+}
+
+/* Newsletter Modal Content */
+.newsletter-signup-content {
+    background: #ffffff;
+    margin: 10% auto; /* Centered vertically and horizontally */
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+/* Close Button */
+#close-newsletter-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+#close-newsletter-modal:hover {
+    color: #ff6b6b;
+}
+
+/* Signup Text */
+.newsletter-signup-content p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Email Input */
+.newsletter-signup-content input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.newsletter-signup-content input[type="email"]:focus {
+    border-color: #007bff;
+}
+
+/* Subscribe Button */
+.newsletter-signup-content button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.newsletter-signup-content button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .newsletter-signup-content {
+        width: 95%;
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div id="home">
+        <!-- Hero Section with Tagline and Visuals -->
+        <div id="hero">
+            <h1>Empower Your Investments with Curated Mutual Fund Insights</h1>
+            <h3>Trusted Expertise from InvestSmart Advisors, Tailored Just for You</h3>
+            <img src="chatbot-avatar.png" alt="InvestSmart Chatbot" class="hero-avatar">
+        </div>        
+        <!-- Action Buttons -->
+        <div class="modal-action-buttons">
+            <button id="register-button" class="action-btn">Register</button>
+            <button id="login-button" class="action-btn">Login</button>
+        </div>
+        <!-- Info Button -->
+        <div class="info-container">
+            <button id="open-features-modal" class="info-btn">Why Use This Chatbot?</button>
+            <button id="open-chat-preview-modal" class="info-btn">Sample Chat</button>
+        </div>
+        <!-- New Action Buttons (Below Info Buttons) -->
+        <div class="extra-buttons-container">
+            <a href="personalized mutual fund recommendation.html">
+                <button id="about-button" class="extra-btn">Tailored Fund Recommendations</button>
+            </a>
+
+            <a href="/templates/index.html">
+                <button id="contact-button" class="extra-btn">Smart NAV Predictions</button>
+            </a>
+            
+            <a href="Optimized Fund Portfolio.html">
+                <button id="feedback-button" class="extra-btn">Optimized Fund Portfolio</button>
+            </a>
+        </div>
+        <!-- Moving Tips Section -->
+        <div class="moving-tips-section">
+    <div class="moving-tips">
+        <p>💡 Tip: Diversify your portfolio to reduce risk! | 🚀 Start investing early to maximize returns! | 📈 Monitor your investments regularly for better performance! | 🛡️ Consider your risk tolerance before choosing funds!</p>
+        <p>💡 Tip: Diversify your portfolio to reduce risk! | 🚀 Start investing early to maximize returns! | 📈 Monitor your investments regularly for better performance! | 🛡️ Consider your risk tolerance before choosing funds!</p> <!-- Duplicate content for seamless scrolling -->
+    </div>
+        </div>
+        <!-- Registration Modal -->
+        <div id="registration-modal" class="registration-modal">
+    <div class="registration-modal-content">
+        <span id="close-registration-modal" class="registration-close-btn">&times;</span>
+        <h2>Register</h2>
+        <p>Create your account to unlock personalized recommendations.</p>
+        <label for="registration-name">Name</label>
+        <input type="text" id="registration-name" required placeholder="Enter your name">
+        
+        <label for="registration-email">Email</label>
+        <input type="email" id="registration-email" required placeholder="Enter your email">
+        
+        <button id="register" class="registration-submit-btn">Register</button>
+    </div>
+        </div>
+        <!-- Login Modal -->
+        <div id="login-modal" class="login-modal">
+    <div class="login-modal-content">
+        <span id="close-login-modal" class="login-close-btn">&times;</span>
+        <h2>Login</h2>
+        <p>Access your account by entering your email.</p>
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required placeholder="Enter your email">
+        
+        <button id="login" class="login-submit-btn">Login</button>
+    </div>
+        </div>
+        <!-- Features Modal -->
+        <div id="features-modal" class="features-modal">
+        <div class="features-modal-content">
+            <span id="close-features-modal" class="features-close-btn">&times;</span>
+            <h2>Why Use This Chatbot?</h2>
+            <p class="features-modal-paragraph">In an age where technology drives financial services, our chatbot stands out by offering innovative solutions that empower you to make informed investment decisions.</p>
+            <ul class="features-modal-list">
+                <li class="features-modal-list-item">⚡ <strong>Quick & Personalized Recommendations</strong>: Tailored fund suggestions based on your investment profile and preferences.</li>
+                <li class="features-modal-list-item">📊 <strong>Compare Mutual Funds in Real-Time</strong>: Instantly see comparisons between various funds to make informed decisions.</li>
+                <li class="features-modal-list-item">🧑‍💻 <strong>Expert Insights Based on Your Goals</strong>: Leverage insights from financial experts to guide your investment journey.</li>
+                <li class="features-modal-list-item">🔒 <strong>Secure Data and Investment Plans</strong>: Your data is protected with top-notch security measures, ensuring privacy and safety.</li>
+                <li class="features-modal-list-item">⏳ <strong>24/7 Availability and Convenience</strong>: Immediate access to investment insights without the wait.</li>
+                <li class="features-modal-list-item">📈 <strong>Regular Updates and Learning</strong>: Our intelligent chatbot learns from your preferences and adapts to market conditions.</li>
+            </ul>
+            <h3>User Testimonials</h3>
+            <blockquote>"The chatbot saved me time and provided great insights!" — Jane Doe, Satisfied User</blockquote>
+            <h3>Ready to Begin?</h3>
+            <button id="start-chat" class="start-btn">Start Chatting Now!</button>
+        </div>
+        </div>
+        <!-- Chat Preview Modal -->
+        <div id="chat-preview-modal" class="chat-preview-modal">
+            <div class="chat-preview-modal-content">
+                <span id="close-chat-preview-modal" class="chat-preview-close-btn">&times;</span>
+                <h2>Sample Chat</h2>
+                <div class="message-container">
+                    <div class="chat-message user-message">
+                        <strong>User:</strong> Hi! I want to invest in mutual funds.
+                    </div>
+                    <div class="chat-message chatbot-message">
+                        <strong>Chatbot:</strong> Sure! Tell me your investment goals, and I’ll suggest the best mutual funds for you.
+                    </div>
+                    <div class="chat-message user-message">
+                        <strong>User:</strong> I'm looking for long-term growth.
+                    </div>
+                    <div class="chat-message chatbot-message">
+                        <strong>Chatbot:</strong> Based on your goal, I recommend the following funds...
+                    </div>
+                    <div class="chat-message user-message">
+                        <strong>User:</strong> I’m new to investing. Where should I start?
+                    </div>
+                    <div class="chat-message chatbot-message">
+                        <strong>Chatbot:</strong> Let’s explore some beginner-friendly mutual funds that align with your risk appetite.
+                    </div>
+                </div>
+                <h3>Why Chat with Us?</h3>
+                <ul>
+                    <li>🌍 Multilingual Support</li>
+                    <li>⏳ Instant Responses</li>
+                    <li>📈 Regular Market Updates</li>
+                </ul>
+                <button id="chat-preview-button" class="start-btn">Chat with Me!</button>
+            </div>            
+        </div>
+        <!-- Footer Section -->
+        <footer id="footer">
+        <div class="footer-content">
+        <p>
+            <a href="About Us.html" class="footer-link">About Us</a> | 
+            <a href="Privacy Policy.html" class="footer-link">Privacy Policy</a> | 
+            <a href="Terms & Conditions.html" class="footer-link">Terms & Conditions</a>
+        </p>
+        <div class="footer-social">
+            <a href="#" aria-label="Follow us on Facebook" class="social-icon">
+                <img src="social-icon-facebook.jpeg" alt="Facebook">
+            </a>
+            <a href="#" aria-label="Follow us on Twitter" class="social-icon">
+                <img src="social-icon-twitter.png" alt="Twitter">
+            </a>
+            <a href="#" aria-label="Connect with us on LinkedIn" class="social-icon">
+                <img src="social-icon-linkedin.png" alt="LinkedIn">
+            </a>
+        </div>
+        <p>
+            For inquiries, please contact us at: 
+            <a href="mailto:support@mutualfundbot.com">support@mutualfundbot.com</a> | 
+            Phone: <a href="tel:+1234567890">+1 (234) 567-890</a>
+        </p>
+        <!-- Subscribe Link -->
+<p>
+    <a href="#" id="subscribe-link">Subscribe to our Newsletter</a>
+</p>
+
+<!-- Newsletter Signup Modal -->
+<div class="newsletter-signup" id="newsletter-signup">
+    <div class="newsletter-signup-content">
+        <span id="close-newsletter-modal">&times;</span>
+        <p>Subscribe to our newsletter for the latest updates:</p>
+        <form action="#" method="post">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</div>
+
+        <p>&copy; 2024 Mutual Fund Bot. All rights reserved.</p>
+    </div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const registrationModal = document.getElementById("registration-modal");
+            const loginModal = document.getElementById("login-modal");
+
+            const closeRegistrationModal = document.getElementById("close-registration-modal");
+            const closeLoginModal = document.getElementById("close-login-modal");
+
+            const registerButton = document.getElementById("register-button");
+            const loginButton = document.getElementById("login-button");
+
+            const registerFormButton = document.getElementById("register");
+            const loginFormButton = document.getElementById("login");
+
+            // Helper function to close modals
+            const closeModal = (modal) => {
+                modal.style.display = "none";
+                clearFormFields(modal);
+            };
+
+            // Clear form fields in a modal
+            const clearFormFields = (modal) => {
+                const inputs = modal.querySelectorAll("input");
+                inputs.forEach(input => input.value = "");
+            };
+
+            // Show registration modal
+            registerButton.addEventListener("click", () => {
+                registrationModal.style.display = "flex";
+            });
+
+            // Show login modal
+            loginButton.addEventListener("click", () => {
+                loginModal.style.display = "flex";
+            });
+            
+                document.getElementById('subscribe-link').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    const newsletterSignup = document.getElementById('newsletter-signup');
+                    if (newsletterSignup.style.display === 'none' || newsletterSignup.style.display === '') {
+                        newsletterSignup.style.display = 'block'; // Show the form
+                    } else {
+                        newsletterSignup.style.display = 'none'; // Hide the form
+                    }
+                });
+            
+            
+
+            // Register user
+            registerFormButton.addEventListener("click", async () => {
+                const name = document.getElementById("registration-name").value;
+                const email = document.getElementById("registration-email").value;
+
+                if (name && email) {
+                    try {
+                        const response = await fetch('/register', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ name, email }),
+                        });
+
+                        if (response.ok) {
+                            const message = await response.text();
+                            alert(message);
+                            localStorage.setItem("userName", name);
+                            localStorage.setItem("userEmail", email);
+                            closeModal(registrationModal);
+                        } else {
+                            const error = await response.text();
+                            alert(error);
+                        }
+                    } catch (error) {
+                        alert('An error occurred during registration.');
+                    }
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            });
+
+            // Login user
+            loginFormButton.addEventListener("click", async () => {
+                const email = document.getElementById("login-email").value;
+
+                if (!email) {
+                    return alert("Please enter an email.");
+                }
+
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const { token, name } = data;
+                        localStorage.setItem("token", token);
+                        localStorage.setItem("userName", name);
+                        localStorage.setItem("userLoggedIn", "true");
+                        window.location.href = "index.html";
+                    } else {
+                        const error = await response.text();
+                        alert(error);
+                    }
+                } catch (error) {
+                    alert('An error occurred during login.');
+                }
+            });
+
+            // Close registration modal
+            closeRegistrationModal.addEventListener("click", () => {
+                closeModal(registrationModal);
+            });
+
+            // Close login modal
+            closeLoginModal.addEventListener("click", () => {
+                closeModal(loginModal);
+            });
+        });
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const subscribeLink = document.getElementById("subscribe-link");
+            const modal = document.getElementById("newsletter-signup");
+            const closeModal = document.getElementById("close-newsletter-modal");
+        
+            // Open the modal when the link is clicked
+            subscribeLink.addEventListener("click", (event) => {
+                event.preventDefault(); // Prevent the default anchor link behavior
+                modal.style.display = "block"; // Show the modal
+            });
+        
+            // Close the modal when the close button is clicked
+            closeModal.addEventListener("click", () => {
+                modal.style.display = "none"; // Hide the modal
+            });
+        
+            // Close the modal when clicking outside the content area
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none"; // Hide the modal
+                }
+            });
+        });
+        
+        // JavaScript for opening and closing the "Why Use This Chatbot?" modal
+document.getElementById("open-features-modal").addEventListener("click", function() {
+    document.getElementById("features-modal").style.display = "block";
+});
+document.getElementById("close-features-modal").addEventListener("click", function() {
+    document.getElementById("features-modal").style.display = "none";
+});
+// Close modal when clicking outside of it
+window.addEventListener("click", function(event) {
+    const modal = document.getElementById("features-modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+// JavaScript for opening and closing the chat preview modal
+document.getElementById("open-chat-preview-modal").addEventListener("click", function() {
+    document.getElementById("chat-preview-modal").style.display = "block"; // Show the modal
+});
+document.getElementById("close-chat-preview-modal").addEventListener("click", function() {
+    document.getElementById("chat-preview-modal").style.display = "none"; // Hide the modal
+});
+// Close modal when clicking outside of it
+window.addEventListener("click", function(event) {
+    const modal = document.getElementById("chat-preview-modal");
+    if (event.target === modal) {
+        modal.style.display = "none"; // Hide the modal
+    }
+});
+    </script>
+</body>
+</html>

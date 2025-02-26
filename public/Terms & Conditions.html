@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - InvestSmart Advisors</title>
+    <style>/* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Terms Container */
+        .terms-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .terms-container h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a; /* Dark blue header */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Section Title Styling */
+        .terms-section {
+            margin-bottom: 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .terms-section:hover {
+            background-color: #e0f2fe;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Light shadow on hover */
+        }
+        
+        .terms-section h2 {
+            font-size: 1.4rem;
+            color: #0c4a6e;
+            padding: 0.8rem 1rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* Toggle Arrow */
+        .toggle-arrow {
+            font-size: 1rem;
+            color: #1e3a8a;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Terms Content */
+        .terms-content {
+            padding: 0 1.5rem;
+            display: block;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4b5563;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease-out;
+        }
+        
+        .terms-content p {
+            margin-top: 0.5rem;
+            color: #374151;
+        }
+        
+        .terms-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .terms-content ul li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+        
+        /* Active Section Styling */
+        .terms-section.active .terms-content {
+            max-height: 500px; /* Placeholder max-height to allow expansion */
+            padding-bottom: 1rem;
+        }
+        
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            color: #1e3a8a;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 1rem;
+            display: block;
+            font-weight: bold;
+        }
+        
+        .back-button:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        </style>
+</head>
+<body>
+
+    <div class="terms-container">
+        
+        <h1>Terms and Conditions</h1>
+        <p>Welcome to InvestSmart Advisors! Please read these terms and conditions carefully before using our services. By accessing or using our platform, you agree to be bound by these terms.</p>
+
+        <!-- Terms Sections -->
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>1. Acceptance of Terms <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>By creating an account and using our services, you agree to be bound by these Terms and Conditions, as well as any additional guidelines, policies, or terms referenced herein.</p>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>2. Eligibility <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>Our services are only available to users who are at least 18 years of age. By using our platform, you represent that you are of legal age to form a binding contract and meet all eligibility requirements.</p>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>3. Use of the Service <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>You agree to use our platform only for lawful purposes and in accordance with these terms. You are responsible for any activity that occurs under your account and must not misuse the services.</p>
+                <ul>
+                    <li>Do not violate any applicable laws or regulations.</li>
+                    <li>Do not use our platform for unauthorized or unethical purposes.</li>
+                    <li>Do not attempt to interfere with our platform’s security or functionality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>4. Account Security <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>You are responsible for maintaining the confidentiality of your account credentials. Notify us immediately if you suspect unauthorized access to your account.</p>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>5. Intellectual Property Rights <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>All content on our platform, including text, graphics, logos, and software, is the property of InvestSmart Advisors or its licensors. Unauthorized use or distribution of our intellectual property is strictly prohibited.</p>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>6. Limitation of Liability <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>InvestSmart Advisors is not liable for any damages resulting from the use of our platform, including any errors or inaccuracies in the information provided or for any investment decisions made based on our recommendations.</p>
+            </div>
+        </div>
+
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>7. Modifications to Terms <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>We reserve the right to modify these terms at any time. We will notify you of any material changes, and your continued use of the platform after changes are posted will constitute your acceptance of the revised terms.</p>
+            </div>
+        </div>
+        
+        <div class="terms-section" onclick="toggleSection(this)">
+            <h2>8. Governing Law <span class="toggle-arrow">▼</span></h2>
+            <div class="terms-content">
+                <p>These Terms and Conditions are governed by the laws of the jurisdiction where InvestSmart Advisors is established. Any disputes arising from the use of our services will be subject to the exclusive jurisdiction of the local courts.</p>
+            </div>
+        </div>
+        <a href="Extra.html" class="back-button">← Back to Homepage</a>
+    </div>
+
+    <script>// Function to toggle content visibility and arrow rotation
+        function toggleSection(section) {
+            const content = section.querySelector(".terms-content");
+            const arrow = section.querySelector(".toggle-arrow");
+        
+            // Toggle the "active" class to expand/collapse content
+            section.classList.toggle("active");
+        
+            if (section.classList.contains("active")) {
+                // Set maxHeight based on scrollHeight to make content fully visible
+                content.style.maxHeight = content.scrollHeight + "px";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                // Collapse the section
+                content.style.maxHeight = "0";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+        
+        // Initialize sections to be collapsed
+        document.querySelectorAll(".terms-section").forEach(section => {
+            const content = section.querySelector(".terms-content");
+            content.style.maxHeight = "0"; // Set initial maxHeight to 0 for collapsed state
+        });
+        
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - InvestSmart Advisors</title>
+    <style>/* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* About Container */
+        .about-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .about-container h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a; /* Dark blue for a professional header */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Core Sections Styling */
+        .purpose-section, .core-values-section, .about-section, .team-section {
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4b5563;
+            text-align: center;
+        }
+        
+        /* Core Values List */
+        .core-values-section ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .core-values-section li {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+        }
+        
+        .core-values-section li::before {
+            content: "•";
+            color: #1e3a8a;
+            margin-right: 0.5rem;
+        }
+        
+        /* Mission and Vision Card Styling */
+        .mission-card, .vision-card {
+            background-color: #e0f2fe;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin: 1rem 0;
+        }
+        
+        .mission-card h2, .vision-card h2 {
+            font-size: 1.6rem;
+            color: #0c4a6e;
+            text-align: left;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mission-card p, .vision-card p {
+            text-align: left;
+        }
+        
+        /* Team Section */
+        .team-section {
+            text-align: center;
+        }
+        
+        .team-section h2 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+        
+        .team-member {
+            display: inline-block;
+            width: 200px;
+            margin: 0.5rem;
+            text-align: center;
+            border-radius: 8px;
+            padding: 1rem;
+            background-color: #f9fafb;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .team-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member h3 {
+            font-size: 1.2rem;
+            color: #0c4a6e;
+            margin: 0.5rem 0;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+        
+        /* Button Styling */
+        .cta-button, .back-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button {
+            background-color: #2563eb;
+            color: #ffffff;
+            margin-top: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        
+        .cta-button:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .back-button {
+            color: #1e3a8a;
+            margin-top: 1rem;
+            display: block;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-button:hover {
+            color: #2563eb;
+        }
+        /* Hover Effect for CTA Button */
+.cta-button:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+    transform: translateY(-2px); /* Small lift effect */
+}
+/* Contact Us Section */
+.contact-section {
+    text-align: center;
+    background-color: #f4f9ff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 2rem auto 0 auto;
+}
+
+.contact-section h2 {
+    font-size: 1.8rem;
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+}
+
+.contact-section p {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.contact-section a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-section a:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px); /* Small lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+
+
+/* Hover Effect for Back Button */
+.back-button:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* Hover Effects for Mission and Vision Cards */
+.mission-card:hover, .vision-card:hover {
+    background-color: #bce6fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+    transform: translateY(-3px); /* Lift effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover Effects for Team Member Cards */
+.team-member:hover {
+    background-color: #f0f4f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px); /* Small lift effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="about-container">
+        <h1>About InvestSmart Advisors</h1>
+        <p>InvestSmart Advisors, founded by Varad Lakhotiya, is dedicated to transforming the way people approach investing. We believe in empowering individuals through customized, insightful strategies that make financial growth achievable for everyone.</p>
+        
+        <!-- Our Purpose Section -->
+        <div class="purpose-section">
+            <h2>Our Purpose</h2>
+            <p>At InvestSmart, our goal is to simplify and democratize investing. We aim to equip individuals with the tools and knowledge needed to confidently navigate their financial journey. With a focus on clarity, control, and convenience, we strive to make the investment process seamless and impactful.</p>
+        </div>
+        
+        <!-- Core Values Section -->
+        <div class="core-values-section">
+            <h2>Core Values</h2>
+            <ul>
+                <li><strong>Transparency:</strong> Building trust through open communication and honest advice.</li>
+                <li><strong>Innovation:</strong> Continuously improving through data-driven insights and advanced technology.</li>
+                <li><strong>Client-Centric:</strong> Tailoring strategies to meet the unique needs of each investor.</li>
+                <li><strong>Empowerment:</strong> Educating and guiding our clients to make informed decisions.</li>
+            </ul>
+        </div>
+        
+        <!-- Our Mission and Vision -->
+        <div class="about-section">
+            <div class="mission-card">
+                <h2>Our Mission</h2>
+                <p>To make investing accessible and insightful for everyone. We champion data-backed recommendations that cater to the individual aspirations of each client.</p>
+            </div>
+            <div class="vision-card">
+                <h2>Our Vision</h2>
+                <p>We envision a future where every individual can secure financial stability with confidence and ease. We aspire to be a trusted partner on every step of the investment journey.</p>
+            </div>
+        </div>
+    
+        <!-- Team Members Section -->
+        <div class="team-section">
+            <h2>Meet Our Team</h2>
+            <p>Our dedicated team brings expertise, experience, and passion to every client relationship. We’re here to guide, support, and empower you in reaching your financial goals.</p>
+            
+            <div class="team-member">
+                <img src="https://via.placeholder.com/80" alt="Varad Lakhotiya" class="team-photo">
+                <h3>Varad Lakhotiya</h3>
+                <p>Founder & CEO</p>
+                <p>A visionary in personalized finance, Varad brings years of experience in creating accessible investment solutions.</p>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>Contact Us</h2>
+            <p>Have questions or need assistance? Our team is here to help.</p>
+            <a href="mailto:support@investsmartadvisors.com" class="cta-button">Get in Touch</a>
+        </div> 
+    
+        <!-- Call to Action -->
+        <a href="Extra.html" class="back-button">← Back to Homepage</a>
+
+               
+    </div>
+    
+    <script>
+        // JavaScript for the button action
+        function navigateToContact() {
+            alert("This will take you to the Contact Us page.");
+            // Ideally, redirect to Contact Us page
+            window.location.href = '/contact';
+        }
+    </script>
+
+</body>
+</html>

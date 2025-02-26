@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Funds Recommendation Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="sidebar">
+            <!-- User Profile Section -->
+            <div id="user-profile" class="user-profile" onclick="openProfileModal()">
+                <img src="profile-pic.png" alt="Profile Picture" id="profile-pic" class="profile-pic">
+                <div id="user-details" class="user-details">
+                <div id="user-name" class="user-name">Username</div>
+                <div id="user-email" class="user-email">user@example.com</div>
+        </div>
+            </div>
+            <!-- User Profile Modal -->
+            <div id="profile-modal" class="modal profile-modal" >
+    <div class="modal-content profile-modal-content">
+        <button class="close-button" id="close-profile-modal" aria-label="Close Profile Modal">&times;</button>
+        <div class="profile-header">
+            <img src="profile-pic.png" alt="Profile Picture" class="profile-pic-large">
+            <h1 id="user-name-modal" class="profile-name">Username</h1>
+        </div>
+        <div class="profile-info">
+            <p><strong>Email:</strong> <span id="user-email-modal">user@example.com</span></p>
+            <p><strong>Member Since:</strong> January 2020</p>
+            <p><strong>Last Login:</strong> September 24, 2024</p>
+        </div>
+        <button id="edit-profile-button" class="profile-button">Edit Profile</button>
+    </div>
+            </div>
+            <!-- Edit Profile Modal -->
+            <div id="edit-profile-modal" class="modal edit-profile-modal">
+    <div class="modal-content edit-profile-modal-content">
+        <button class="close-button" id="close-edit-profile-modal" aria-label="Close Edit Profile Modal">&times;</button>
+        <h1>Edit Profile</h1>
+        <form id="edit-profile-form" class="edit-form">
+            <label for="edit-name">Name:</label>
+            <input type="text" id="edit-name" placeholder="Enter your name" required>
+            
+            <label for="edit-email">Email:</label>
+            <input type="email" id="edit-email" placeholder="Enter your email" required>
+        </form>
+        <button id="save-profile-button" class="profile-button">Save Changes</button>
+    </div>
+            </div>
+            <!-- Navigation -->
+            <div id="navigation">
+                <ul>
+                    <li><a href="Extra.html">Home</a></li>
+                    <li><a href="#" id="dashboard-button">Dashboard</a></li>
+                    <li><a href="#" id="recommendations-button">Recommendations</a></li>
+                    <li><a href="#" id="performance-tracker-button">Performance Tracker</a></li>
+                    <li><a href="#" id="comparative-analysis-button">Comparative Analysis</a></li>
+                    <li><a href="#" id="investment-goals-button">Investment Goals</a></li>
+                    <li><a href="#" id="watchlist-button">Watchlist</a></li>
+                    <li><a href="#" id="resources-button">Resources</a></li>
+                    <li><a href="#" id="testimonials-button">Testimonials</a></li>
+                    <li><a href="#" id="about-us-button">About Us</a></li>
+                    <li><a href="#" id="open-settings-button">Settings</a></li>
+                </ul>
+            </div>
+            <!-- Feedback Button -->
+            <div id="feedback-container">
+                <button id="feedback">Feedback</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content">
+            <div id="header">
+                <h1>Mutual Funds Recommendation Chatbot</h1>
+                <div class="button-container">
+                    <!-- Position this button in your sidebar or in the header -->
+                    <button id="open-fund-details-modal" class="add-fund-btn">Add My Mutual Fund Details</button>
+                    <button id="open-watchlist-details-modal" class="add-watchlist-btn">Create My Personalized Watchlist</button>
+                    <button id="share-button"><img src="share.png" alt="Share" style="width: 20px; height: 20px; margin-right: 5px; vertical-align: middle;"></button>
+                    <button id="logout">Logout</button>
+                </div>
+            </div>
+    
+            <!-- Chat Area -->
+            <div id="chat-area">
+                <div id="chat-container">
+                    <div id="chat-messages">
+                        <div class="backend-message">
+                            <span class="typing-effect"></span>
+                        </div>
+                    </div>
+                    <div id="user-input">
+                        <button id="attach-file">Attach File</button>
+                        <input type="file" id="file-input" style="display: none;" />
+                        <textarea id="message-input" rows="1" placeholder="Type your message here..."></textarea>
+                        <button id="send-button">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modals -->
+    <!-- Mutual Fund Details Collection Modal -->
+    <div id="fund-details-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-content" role="document">
+        <div id="fund-details-steps">
+            <span class="modal-close" aria-label="Close modal">&times;</span>
+            <h3 id="modal-title">Enter Mutual Fund Details</h3>
+            <!-- Step Progress Indicator -->
+            <div class="step-progress">
+                <span class="progress-step active" data-step="1">Step 1</span>
+                <span class="progress-step" data-step="2">Step 2</span>
+                <span class="progress-step" data-step="3">Step 3</span>
+                <span class="progress-step" data-step="4">Review</span>
+            </div>
+            <!-- Step 1: Basic Fund Information -->
+            <div id="step-1" class="step active-step">
+                <h4>Step 1: Basic Information</h4>
+                <div class="form-card">
+                    <label for="fund-name">Fund Name <small>(Required)</small></label>
+                    <input type="text" id="fund-name" placeholder="Mutual fund name" required aria-required="true" aria-label="Fund Name" />
+
+                    <label for="investment-amount">Investment Amount <small>(Required)</small></label>
+                    <input type="number" id="investment-amount" placeholder="Enter amount" required aria-required="true" aria-label="Investment Amount" />
+
+                    <button class="next-step-btn" type="button">Next</button>
+                </div>
+            </div>
+            <!-- Step 2: Investment Period -->
+            <div id="step-2" class="step">
+                <h4>Step 2: Investment Period</h4>
+                <div class="form-card">
+                    <label for="investment-date">Investment Date <small>(Required)</small></label>
+                    <input type="date" id="investment-date" required aria-required="true" />
+
+                    <label for="fund-duration">Investment Duration (Years) <small>(Required)</small></label>
+                    <input type="number" id="fund-duration" placeholder="Years" required aria-required="true" />
+
+                    <button class="prev-step-btn" type="button">Back</button>
+                    <button class="next-step-btn" type="button">Next</button>
+                </div>
+            </div>
+            <!-- Step 3: Risk & Returns -->
+            <div id="step-3" class="step">
+                <h4>Step 3: Risk & Expected Returns</h4>
+                <div class="form-card">
+                    <label for="risk-level">Risk Level</label>
+                    <select id="risk-level" required aria-required="true">
+                        <option value="" disabled selected>Select risk level</option>
+                        <option value="low">Low</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <label for="expected-return">Expected Return (%) <small>(Required)</small></label>
+                    <input type="number" id="expected-return" placeholder="Expected return" required aria-required="true" />
+
+                    <button class="prev-step-btn" type="button">Back</button>
+                    <button class="next-step-btn" type="button">Next</button>
+                </div>
+            </div>
+            <!-- Step 4: Confirmation -->
+            <div id="step-4" class="step">
+                <h4>Step 4: Review & Submit</h4>
+                <div class="form-card">
+                    <ul id="review-summary">
+                        <li><strong>Fund Name:</strong> <span id="confirm-fund-name"></span></li>
+                        <li><strong>Investment Amount:</strong> <span id="confirm-investment-amount"></span></li>
+                        <li><strong>Investment Date:</strong> <span id="confirm-investment-date"></span></li>
+                        <li><strong>Investment Duration:</strong> <span id="confirm-fund-duration"></span></li>
+                        <li><strong>Risk Level:</strong> <span id="confirm-risk-level"></span></li>
+                        <li><strong>Expected Return:</strong> <span id="confirm-expected-return"></span></li>
+                    </ul>
+                    <!-- Enhanced Feature Introduction Section -->
+        <div class="features-introduction">
+            <h5>🚀 Explore Your Investment Journey!</h5>
+            <p>Congratulations on your investment decision!</p>
+            <p>Your investment is the first step. Let's embark on this exciting journey together!</p>
+        </div>
+
+                    <button class="prev-step-btn" type="button">Back</button>
+                    <button id="submit-fund-details-btn" type="button">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Enhanced Personalized Watchlist Modal -->
+    <div id="watchlist-details-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="watchlist-details-modal-title">
+    <div class="modal-content">
+        <span class="modal-close" aria-label="Close modal">&times;</span>
+        <h3 id="watchlist-details-modal-title" class="modal-header">Create Your Personalized Watchlist</h3>
+        
+        <!-- Step Progress Indicator -->
+        <div class="step-progress">
+            <span class="progress-step active" data-step="1">Add Fund</span>
+            <span class="progress-step" data-step="2">Define Goals</span>
+            <span class="progress-step" data-step="3">Risk Assessment</span>
+            <span class="progress-step" data-step="4">Review</span>
+        </div>
+
+        <!-- Step 1: Add Fund to Watchlist -->
+        <div id="watchlist-step-1" class="step active-step">
+            <h4>Step 1: Add Funds to Your Watchlist</h4>
+            <div class="form-card">
+                <label for="watchlist-fund-name">Fund Name <small>(Required)</small></label>
+                <input type="text" id="watchlist-fund-name" placeholder="e.g., ABC Equity Fund" required aria-required="true" aria-label="Fund Name" />
+
+                <label for="watchlist-fund-type">Fund Type <small>(Required)</small></label>
+                <select id="watchlist-fund-type" required aria-required="true">
+                    <option value="" disabled selected>Select fund type</option>
+                    <option value="equity">Equity</option>
+                    <option value="debt">Debt</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="liquid">Liquid</option>
+                </select>
+
+                <button class="next-step-btn" type="button">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Investment Goals -->
+        <div id="watchlist-step-2" class="step">
+            <h4>Step 2: Define Your Investment Goals</h4>
+            <div class="form-card">
+                <label for="watchlist-goal">Investment Goal <small>(Required)</small></label>
+                <input type="text" id="watchlist-goal" placeholder="e.g., Retirement Fund" required aria-required="true" />
+
+                <label for="watchlist-timeframe">Timeframe (Years) <small>(Required)</small></label>
+                <input type="number" id="watchlist-timeframe" placeholder="Enter years" min="1" required aria-required="true" />
+
+                <button class="prev-step-btn" type="button">Back</button>
+                <button class="next-step-btn" type="button">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Risk Assessment -->
+        <div id="watchlist-step-3" class="step">
+            <h4>Step 3: Assess Your Risk Tolerance</h4>
+            <div class="form-card">
+                <label for="watchlist-risk-level">Risk Level <small>(Required)</small></label>
+                <select id="watchlist-risk-level" required aria-required="true">
+                    <option value="" disabled selected>Select risk level</option>
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+
+                <button class="prev-step-btn" type="button">Back</button>
+                <button class="next-step-btn" type="button">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Review & Submit -->
+        <div id="watchlist-step-4" class="step">
+            <h4>Step 4: Review Your Watchlist</h4>
+            <div class="form-card review-summary">
+                <ul id="watchlist-review-summary">
+                    <li><strong>Fund Name:</strong> <span id="confirm-watchlist-fund-name"></span></li>
+                    <li><strong>Fund Type:</strong> <span id="confirm-watchlist-fund-type"></span></li>
+                    <li><strong>Investment Goal:</strong> <span id="confirm-watchlist-goal"></span></li>
+                    <li><strong>Timeframe:</strong> <span id="confirm-watchlist-timeframe"></span> years</li>
+                    <li><strong>Risk Level:</strong> <span id="confirm-watchlist-risk-level"></span></li>
+                </ul>
+
+                <div class="features-introduction">
+                    <h5>🚀 Let's Personalize Your Investment!</h5>
+                    <p>Make sure all details are correct before proceeding!</p>
+                    <p>Your personalized watchlist will help guide your investment journey.</p>
+                </div>
+
+                <button class="prev-step-btn" type="button">Back</button>
+                <button id="submit-watchlist-btn" type="button" class="submit-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    
+    <!-- Dashboard Modal -->
+    <div id="dashboard-modal" class="modal dashboard-modal">
+    <div class="modal-content">
+        <div id="dashboard">
+            <span class="modal-close">&times;</span>
+            <h1>Your Financial Dashboard</h1>
+
+            <!-- Portfolio Overview -->
+            <div id="portfolio-overview" class="dashboard-item">
+                <h3>Portfolio Overview</h3>
+                <div class="portfolio-data">
+                    <p>Total Investment: <strong id="total-investment">₹0</strong></p>
+                    <p>Current Value: <strong id="current-value">₹0</strong></p>
+                    <p>Gain/Loss: <strong id="gain-loss" style="color: black;">₹0 (0%)</strong></p>
+                </div>
+                <div class="investment-chart">
+                    <canvas id="portfolio-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Investment Performance Trends -->
+            <div id="investment-performance-trends" class="dashboard-item">
+                <h3>Investment Performance Trends</h3>
+                <p>Track your portfolio’s performance over time to understand its growth trajectory:</p>
+                <div class="performance-trend-chart">
+                    <canvas id="performance-trend-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Benchmark Comparison -->
+            <div id="benchmark-comparison" class="dashboard-item">
+                <h3>Benchmark Comparison</h3>
+                <p>See how your portfolio compares with key benchmarks like NIFTY 50:</p>
+                <div class="benchmark-chart">
+                    <canvas id="benchmark-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Future Projections -->
+            <div id="future-projections" class="dashboard-item">
+                <h3>Future Projections</h3>
+                <p>Enter an estimated growth rate to see future projections:</p>
+                <div class="growth-rate-container">
+                    <input type="number" id="growth-rate" placeholder="e.g., 10" />
+                    <span class="percentage-sign">%</span>
+                </div>
+                <button id="calculate-projection">Calculate</button>
+                <div>
+                    <p>Projected Value in 5 years: <strong id="projected-value">₹0</strong></p>
+                </div>
+            </div>
+
+            <!-- Financial Goal Progress -->
+            <div id="goal-progress" class="dashboard-item">
+                <h3>Financial Goal Progress</h3>
+                <ul class="goal-progress-list">
+                    <li>Retirement Fund: <progress value="40" max="100"></progress> 40%</li>
+                    <li>Education Fund: <progress value="65" max="100"></progress> 65%</li>
+                    <li>Emergency Fund: <progress value="30" max="100"></progress> 30%</li>
+                </ul>
+            </div>
+            <!-- Recent Performance Summary -->
+            <div id="recent-performance" class="dashboard-item">
+                <h3>Recent Performance</h3>
+                <p>This week’s summary:</p>
+                <ul>
+                    <li>Weekly Gain: <strong>₹5000 (2%)</strong></li>
+                    <li>Top Performer: <strong>Fund A</strong></li>
+                    <li>Lowest Performer: <strong>Fund B</strong></li>
+                </ul>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div id="risk-assessment" class="dashboard-item">
+                <h3>Risk Assessment</h3>
+                <p>Current portfolio risk level:</p>
+                <p id="risk-level" style="color: #e67e22;">Moderate</p>
+            </div>
+
+            <!-- Personalized Insights -->
+            <div id="personalized-insights" class="dashboard-item">
+                <h3>Personalized Insights</h3>
+                <p id="insight-message">Based on your recent activities, here are some insights:</p>
+                <ul id="insight-list"></ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Recommendations Modal -->
+    <div id="recommendations-modal" class="modal recommendations-modal">
+    <div class="modal-content">
+        <div id="recommendations">
+            <span class="modal-close">&times;</span>
+            <h1>Personalized Investment Suggestions</h1>
+
+            <!-- Featured Large-Cap Mutual Fund Recommendations -->
+            <div id="recommended-funds" class="recommendations-item">
+                <h3>Leading Large-Cap Mutual Fund Recommendations</h3>
+                <div class="fund-data">
+                    <div class="fund">
+                        <h4>ICICI Prudential Bluechip Fund</h4>
+                        <p><em>Risk-Conscious Choice</em></p>
+                        <p>This fund emphasizes reputable blue-chip companies for stable capital appreciation and security.</p>
+                        <p><strong>Annualized Returns:</strong> 12.5%</p>
+                        <p><strong>Expense Ratio:</strong> 1.5%</p>
+                        <p><strong>AUM:</strong> $4.5 Billion</p>
+                    </div>
+                    <hr>
+                    <div class="fund">
+                        <h4>HDFC Top 100 Fund</h4>
+                        <p><em>Balanced Growth</em></p>
+                        <p>Targets industry leaders, offering strong growth with controlled market exposure.</p>
+                        <p><strong>Annualized Returns:</strong> 13.0%</p>
+                        <p><strong>Expense Ratio:</strong> 1.3%</p>
+                        <p><strong>AUM:</strong> $3.8 Billion</p>
+                    </div>
+                    <hr>
+                    <div class="fund">
+                        <h4>SBI Bluechip Fund</h4>
+                        <p><em>Steady Performer</em></p>
+                        <p>Focuses on risk management for investors prioritizing growth with minimal volatility.</p>
+                        <p><strong>Annualized Returns:</strong> 11.8%</p>
+                        <p><strong>Expense Ratio:</strong> 1.6%</p>
+                        <p><strong>AUM:</strong> $4.1 Billion</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fund Manager Profiles -->
+            <div id="fund-manager-profiles" class="recommendations-item">
+                <h3>Meet the Fund Managers</h3>
+                <ul>
+                    <li><strong>ICICI Prudential Bluechip Fund Manager:</strong> Rahul Sharma – 15 years in equity markets, specializes in large-cap growth.</li>
+                    <li><strong>HDFC Top 100 Fund Manager:</strong> Priya Verma – Known for a balanced strategy, focusing on high-growth sectors.</li>
+                    <li><strong>SBI Bluechip Fund Manager:</strong> Amit Desai – Expert in risk management and long-term growth.</li>
+                </ul>
+            </div>
+
+            <!-- SIP vs. Lump Sum Comparison Table -->
+            <div id="sip-vs-lumpsum" class="recommendations-item">
+                <h3>Choosing Between SIP and Lump Sum Investments</h3>
+                <p>Selecting an investment approach can impact your financial outcomes. Here’s a quick comparison:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>SIP</th>
+                            <th>Lump Sum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Risk</td>
+                            <td>Low, reduces market timing risk</td>
+                            <td>Higher, depends on market entry</td>
+                        </tr>
+                        <tr>
+                            <td>Ideal For</td>
+                            <td>Gradual wealth accumulation</td>
+                            <td>Investors with substantial capital</td>
+                        </tr>
+                        <tr>
+                            <td>Flexibility</td>
+                            <td>High, regular small contributions</td>
+                            <td>Low, single large investment</td>
+                        </tr>
+                        <tr>
+                            <td>Potential Growth</td>
+                            <td>Moderate, benefits from rupee-cost averaging</td>
+                            <td>High, direct market exposure</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tax Implications for Investments -->
+            <div id="tax-implications" class="recommendations-item">
+                <h3>Understanding Tax Implications for Large-Cap Investments</h3>
+                <p>Investing in large-cap funds comes with tax benefits and liabilities:</p>
+                <ul>
+                    <li><strong>Long-Term Capital Gains (LTCG) Tax:</strong> 10% on gains exceeding ₹1 lakh if held for over a year.</li>
+                    <li><strong>Short-Term Capital Gains (STCG) Tax:</strong> 15% if held for less than a year.</li>
+                    <li><strong>Dividends:</strong> Dividends are added to taxable income based on the investor's income tax slab.</li>
+                </ul>
+            </div>
+
+            <!-- Why Large-Cap Funds? -->
+            <div id="why-large-cap" class="recommendations-item">
+                <h3>Why Investing in Large-Cap Funds Makes Sense</h3>
+                <p>Large-cap mutual funds focus on industry leaders with a proven history. Benefits include:</p>
+                <ul>
+                    <li><strong>Resilience in Market Volatility:</strong> Large-cap companies maintain stability during market fluctuations due to their robust financials.</li>
+                    <li><strong>Reliable Long-Term Returns:</strong> Their solid fundamentals lead to consistent growth, benefiting long-term investors.</li>
+                    <li><strong>Reduced Risk Exposure:</strong> These funds offer security with potential for steady growth.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Performance Tracker Modal --> 
+    <div id="performance-tracker-modal" class="modal performance-tracker-modal">
+    <div class="modal-content">
+        <div id="performance-tracker">
+            <span class="modal-close">&times;</span>
+            <h3 class="modal-title">Investment Performance Dashboard</h3>
+            <p class="welcome-text">Welcome to your Investment Performance Dashboard, where you can effortlessly track and analyze your portfolio’s performance. Gain insights and make informed decisions to optimize your investment strategy.</p>
+            
+            <!-- Portfolio Snapshot Section -->
+            <div class="tile">
+                <h4 class="tile-title">Portfolio Snapshot</h4>
+                <div class="tile-content">
+                    <p><strong>Total Portfolio Value:</strong> <span class="highlight" id="total-portfolio-value">₹0</span></p>
+                    <p><strong>Overall Growth (Last 30 Days):</strong> <span class="highlight" id="overall-growth">+0%</span></p>
+                    <p><strong>Annualized Return:</strong> <span class="highlight" id="annualized-return">+0%</span></p>
+                </div>
+            </div>
+
+            <!-- Top Performing Investments Section -->
+            <div class="tile">
+                <h4 class="tile-title">Top Performing Investments</h4>
+                <ul id="top-performing-investments" class="investment-list">
+                    <!-- Dynamic content will be inserted here -->
+                </ul>
+            </div>
+
+            <!-- Risk Assessment Section -->
+            <div class="tile">
+                <h4 class="tile-title">Risk Assessment</h4>
+                <div class="tile-content">
+                    <p><strong>Current Risk Level:</strong> <span class="highlight risk" id="current-risk-level">Unknown</span></p>
+                </div>
+            </div>
+
+            <p class="call-to-action">Ready to optimize your portfolio? Let’s elevate your investment strategy today!</p>
+            <a href="index.html">
+                <button class="action-button">Get Started</button>
+            </a>              
+        </div>
+    </div>
+    </div>
+    <!-- Include Chart.js for dynamic data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize the Portfolio Growth Chart
+        function initPortfolioGrowthChart() {
+            const ctx = document.getElementById('portfolio-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [{
+                        label: 'Portfolio Growth',
+                        data: [10000, 10500, 11000, 11500, 12000, 12500],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#333'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    
+        // Initialize Investment Performance Trends Chart
+        function initPerformanceTrendsChart() {
+            const ctx = document.getElementById('performance-trend-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data: [10000, 12000, 14000, 16000],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#333'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    
+        // Initialize Benchmark Comparison Chart
+        function initBenchmarkComparisonChart() {
+            const ctx = document.getElementById('benchmark-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [
+                        {
+                            label: 'Your Portfolio',
+                            data: [10000, 10800, 11500, 11700, 12100, 13000],
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'NIFTY 50',
+                            data: [10000, 10500, 11000, 12000, 12500, 12800],
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#333'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    
+        // Initialize all charts after the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initPortfolioGrowthChart();
+            initPerformanceTrendsChart();
+            initBenchmarkComparisonChart();
+        });
+    </script>  
+    <!-- Comparative Analysis Modal -->
+    <div id="comparative-analysis-modal" class="modal comparative-analysis-modal">
+    <div class="modal-content">
+        <div id="comparative-analysis">
+            <span class="modal-close">&times;</span>
+            <h3>Comprehensive Comparative Analysis of Mutual Funds</h3>
+            <p>Empower your investment journey by exploring a detailed comparative analysis of various mutual funds. Our insights allow you to evaluate funds based on key performance indicators tailored to your financial goals.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fund Name</th>
+                        <th>1-Year Annualized Return</th>
+                        <th>Risk Level</th>
+                        <th>Expense Ratio</th>
+                    </tr>
+                </thead>
+                <tbody id="comparative-analysis-body">
+                    <!-- Data will be populated here dynamically -->
+                </tbody>
+            </table>
+            <div id="investor-insights">
+                <h4>Insights for Investors</h4>
+                <ul>
+                    <li>Investment diversity can mitigate risks.</li>
+                    <li>Historical performance does not guarantee future results.</li>
+                    <li>Understanding your risk tolerance is crucial.</li>
+                    <li>Long-term investments generally yield better returns.</li>
+                </ul>
+                <div class="last-line">Make informed decisions for a secure financial future!</div>
+            </div>            
+        </div>
+    </div>
+    </div>
+    <!-- Investment Goals Modal -->
+    <div id="investment-goals-modal" class="modal investment-goals-modal">
+    <div class="modal-content">
+        <div id="investment-goals">
+            <span class="modal-close">&times;</span>
+            <h3>Chart Your Financial Journey</h3>
+            <p>Take control of your financial destiny! Setting clear investment goals helps you stay focused on what truly matters to you and your family.</p>
+            
+            <h4>Your Key Investment Aspirations</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Investment Goal</th>
+                        <th>Target Amount</th>
+                        <th>Timeline</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Retirement Fund</strong></td>
+                        <td><strong>₹1 Crore</strong></td>
+                        <td>15 years</td>
+                        <td>Enjoy a peaceful retirement without financial worries.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Higher Education Fund</strong></td>
+                        <td><strong>₹30 Lakhs</strong></td>
+                        <td>7 years</td>
+                        <td>Invest in your children's dreams for their higher studies.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Health Emergency Fund</strong></td>
+                        <td><strong>₹15 Lakhs</strong></td>
+                        <td>3 years</td>
+                        <td>Financial cushion for unexpected medical expenses.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Home Purchase Fund</strong></td>
+                        <td><strong>₹50 Lakhs</strong></td>
+                        <td>10 years</td>
+                        <td>Invest in your dream home for a secure future.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vacation Fund</strong></td>
+                        <td><strong>₹5 Lakhs</strong></td>
+                        <td>2 years</td>
+                        <td>Plan a memorable family vacation to unwind and bond.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4>Additional Investment Areas</h4>
+            <div class="investment-tiles">
+                <div class="tile">
+                    <h5>Mutual Funds</h5>
+                    <p>Invest in diversified portfolios managed by professionals to achieve stable returns over time.</p>
+                    <strong>Target: ₹20 Lakhs</strong>
+                </div>
+                <div class="tile">
+                    <h5>Public Provident Fund (PPF)</h5>
+                    <p>A government-backed long-term savings scheme with attractive interest rates and tax benefits.</p>
+                    <strong>Target: ₹10 Lakhs</strong>
+                </div>
+                <div class="tile">
+                    <h5>Fixed Deposits</h5>
+                    <p>Secure your funds with fixed interest rates and guaranteed returns over a specified tenure.</p>
+                    <strong>Target: ₹25 Lakhs</strong>
+                </div>
+                <div class="tile">
+                    <h5>Stock Market Investments</h5>
+                    <p>Participate in the stock market for potential high returns by investing in quality stocks.</p>
+                    <strong>Target: ₹15 Lakhs</strong>
+                </div>
+                <div class="tile">
+                    <h5>Real Estate Investments</h5>
+                    <p>Build wealth through real estate by investing in residential or commercial properties.</p>
+                    <strong>Target: ₹75 Lakhs</strong>
+                </div>
+            </div>
+            <h4>Why Setting Goals Matters?</h4>
+            <div class="goals-container">
+                <div class="goal-tile">
+                    <p>Setting investment goals provides clarity and direction, empowering you to measure progress and make adjustments along the way. By defining your objectives, you can:</p>
+                    <ul>
+                        <li><strong>Align Investments with Your Life Goals:</strong> Ensure every rupee invested works towards your dreams.</li>
+                        <li><strong>Stay Motivated:</strong> Witnessing progress towards your goals fuels your determination.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="goals-container">
+                <h4>Steps to Achieve Your Investment Goals</h4>
+                    <div class="goal-tile">
+                    <ol>
+                        <li><strong>Assess Your Financial Situation:</strong> Review your current income, expenses, and savings.</li>
+                        <li><strong>Define Clear Goals:</strong> Set specific, measurable, achievable, relevant, and time-bound (SMART) goals.</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Personalized Goal Calculator Section -->
+            <h4>Investment Calculator</h4>
+            <p>Estimate monthly contributions to reach your target amounts for each goal.</p>
+            <div class="calculator-section">
+                <label for="goal-target">Target Amount (₹):</label>
+                <input type="number" id="goal-target" placeholder="Enter target amount" />
+
+                <label for="goal-timeline">Timeline (years):</label>
+                <input type="number" id="goal-timeline" placeholder="Enter years to achieve goal" />
+
+                <button type="button" id="calculate-contribution-button">Calculate Monthly Contribution</button>
+                <p id="monthly-contribution-result"></p>
+            </div>
+
+            <!-- Risk Profile Assessment Section -->
+            <h4>Risk Profile Assessment</h4>
+            <form id="risk-assessment-form">
+                <label for="experience">Investment Experience:</label>
+                <select id="experience">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="expert">Expert</option>
+                </select>
+
+                <label for="comfort">Comfort Level with Risk:</label>
+                <select id="comfort">
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+
+                <button type="button" id="assess-risk-button">Submit</button>
+                <p id="risk-profile-result"></p>
+            </form>
+
+            <!-- Dynamic Investment Recommendations -->
+            <h4>Dynamic Investment Recommendations</h4>
+            <div id="investment-recommendations"></div>
+
+            <!-- Call to Action for Professional Support -->
+            <h4>Get Professional Advice</h4>
+            <button type="button" id="schedule-consultation-button">Schedule a Financial Consultation</button>
+            <h4>Checklist to Track Progress</h4>
+            <a href="investment-goal-checklist.pdf" download class="download-link">Download Your Investment Goal Checklist</a>
+
+            <div class="center-tile">
+                <h4>Let's Get Started!</h4>
+                <p>Your financial future is in your hands. Take the first step towards achieving your investment goals today!</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="watchlist-modal" class="modal watchlist-modal">
+        <div class="modal-content">
+          <div id="watchlist">
+            <span class="modal-close">&times;</span>
+            <h3>Your Investment Watchlist</h3>
+            <p>Track your selected mutual funds and stay aligned with your financial goals.</p>
+            
+            <ul id="watchlist-items">
+              <!-- Dynamic list items will be populated here -->
+            </ul>
+      
+            <!-- Alerts and Notifications Section -->
+            <div class="alerts-section">
+              <h4>Alerts and Notifications</h4>
+              <p>Stay informed about important changes in your funds:</p>
+              <label for="alert-threshold">Notify me when my funds exceed:</label>
+              <input type="number" id="alert-threshold" placeholder="Percentage Change" min="0" step="0.1">%
+              <button class="set-alert-button">Set Alert</button>
+              <p class="alert-description">Get notified when your funds exceed a certain percentage change or when new funds match your criteria.</p>
+            </div>
+      
+            <!-- Investment Tip Section -->
+            <div class="tip-section">
+              <p>💡 <strong>Investment Tip:</strong> Balancing your portfolio across sectors and fund types can help manage risk and optimize returns over time. Consider automated investments for rupee cost averaging.</p>
+            </div>
+      
+            <!-- Explore More Section -->
+            <div class="explore-more">
+              <p>🌟 <strong>Stay Ahead:</strong> Keep up with market insights, fund analysis, and key indicators to make smarter decisions.</p>
+              <button class="learn-more-button">View Insights</button>
+            </div>
+            
+            <section class="expert-advice">
+                <h2>Need guidance?</h2>
+                <p>Our financial experts are here to help you optimize your investments based on your personal goals. Book a consultation today to receive tailored advice.</p>
+                <button class="cta-button">Get Expert Advice</button>
+              </section>              
+      
+            <p class="closing-remark">Empower Your Financial Journey</p>
+          </div>
+        </div>
+    </div>  
+    <!-- Resources Modal -->
+    <div id="resources-modal" class="modal resources-modal">
+    <div class="modal-content">
+        <div id="resources">
+            <span class="modal-close">&times;</span>
+            <h3>Explore Investment Resources</h3>
+            <p>Enhance your investment knowledge with these curated resources:</p>
+            <ul>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://www.investopedia.com/" target="_blank">Investopedia</a>
+                        <p class="resource-description">Your go-to source for financial education, investment strategies, and market analysis.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://www.morningstar.com/" target="_blank">Morningstar</a>
+                        <p class="resource-description">Comprehensive investment research and insights for better decision-making.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://groww.in/" target="_blank">Groww</a>
+                        <p class="resource-description">A user-friendly platform for seamless mutual fund investments and stock trading.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://www.moneycontrol.com/" target="_blank">Moneycontrol</a>
+                        <p class="resource-description">Stay informed with real-time stock market updates and expert analyses.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://www.thebalance.com/" target="_blank">The Balance</a>
+                        <p class="resource-description">Practical advice on personal finance, investing, and managing money effectively.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="resource-tile">
+                        <a href="https://www.cnbc.com/personal-finance/" target="_blank">CNBC Personal Finance</a>
+                        <p class="resource-description">Insights on financial markets, trends, and tips for personal wealth management.</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="recommended-section">
+                <h4>Recommended Tools & Courses</h4>
+                <ul>
+                    <li><a href="https://www.nseindia.com/" target="_blank">NSE India</a> - National Stock Exchange for real-time market updates.</li>
+                    <li><a href="https://www.courses.com/" target="_blank">Investment Courses</a> - Enhance your knowledge with expert-led courses.</li>
+                </ul>
+            </div>
+            <div class="tools-section">
+                <h4>Investment Calculators</h4>
+                <ul>
+                    <li><a href="https://www.calculator.net/investment-calculator.html" target="_blank">Investment Calculator</a> - Plan and calculate your investment returns.</li>
+                    <li><a href="https://www.moneycontrol.com/financial-tools" target="_blank">Financial Tools</a> - Access tools for SIP, loan, and retirement planning.</li>
+                </ul>
+            </div>
+            <div class="tutorials-section">
+                <h4>Top Articles & Tutorials</h4>
+                <ul>
+                    <li><a href="https://www.investopedia.com/articles/investing/091215/how-build-portfolio.asp" target="_blank">How to Build an Investment Portfolio</a></li>
+                    <li><a href="https://www.morningstar.com/articles" target="_blank">Morningstar Articles</a> - Stay informed with expert financial insights.</li>
+                </ul>
+            </div>
+            <p class="explore-reminder">Explore these resources to empower your investment journey!</p>
+        </div>
+    </div>
+    </div>
+    <!-- Testimonials Modal -->
+    <div id="testimonials-modal" class="modal testimonials-modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-testimonials-modal">&times;</span>
+        <h1>User Testimonials</h1>
+        <p class="intro-text">Hear what our users have to say about their experience with our platform.</p>
+
+        <!-- Carousel Container -->
+        <div class="carousel">
+            <div class="carousel-inner" id="testimonials">
+                <div class="testimonial-tile active">
+                    <img src="https://i.pinimg.com/originals/15/ca/0c/15ca0c352322cb9101e20e423ec34554.jpg" alt="User Photo of Rahul Sharma" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Rahul Sharma</h2>
+                        <h3>Financial Consultant, Mumbai, India</h3>
+                        <p>
+                            <em>"This platform has truly revolutionized my investment management experience. The personalized recommendations have instilled a newfound confidence in my financial decisions."</em>
+                        </p>
+                        <div class="rating">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-tile">
+                    <img src="https://image.tmdb.org/t/p/w500/oyyCVVGwx3xGomOAESsHxpJacBK.jpg" alt="User Photo of Anjali Patel" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Anjali Patel</h2>
+                        <h3>Small Business Owner, Bengaluru, India</h3>
+                        <p>
+                            <em>"I appreciate the intuitive interface and the detailed performance tracking. It enables me to make informed decisions while effortlessly keeping up with market trends."</em>
+                        </p>
+                        <div class="rating">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-tile">
+                    <img src="https://i.pinimg.com/originals/09/0b/74/090b741d0e432a4e5c969126269c1e3b.jpg" alt="User Photo of Vikram Singh" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Vikram Singh</h2>
+                        <h3>Tech Entrepreneur, New Delhi, India</h3>
+                        <p>
+                            <em>"The recommendations provided here have been consistently accurate! I’ve witnessed steady growth in my portfolio, and the support team is always available to assist with any inquiries."</em>
+                        </p>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-tile">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWcB4SkQKTze6EbVI1i5Kbwn05hjKk-nr-0g&s" alt="User Photo of Pooja Rao" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Pooja Rao</h2>
+                        <h3>Marketing Specialist, Chennai, India</h3>
+                        <p>
+                            <em>"I love the user-friendly interface and insightful recommendations. This platform is a reliable resource for new investors like myself who are eager to learn and grow."</em>
+                        </p>
+                        <div class="rating">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-tile">
+                    <img src="https://randomuser.me/api/portraits/women/64.jpg" alt="User Photo of Meera Desai" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Meera Desai</h2>
+                        <h3>Investment Analyst, Kolkata, India</h3>
+                        <p>
+                            <em>"The analysis tools provided have helped me evaluate my investment strategy effectively. It's a comprehensive platform that meets all my investment needs!"</em>
+                        </p>
+                        <div class="rating">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-tile">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="User Photo of Arjun Mehta" class="user-photo">
+                    <div class="testimonial-text">
+                        <h2>Arjun Mehta</h2>
+                        <h3>Real Estate Developer, Pune, India</h3>
+                        <p>
+                            <em>"I’ve tried several platforms, but this one stands out for its user support and quality insights. I feel empowered to make better financial choices."</em>
+                        </p>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-control prev">❮</button>
+            <button class="carousel-control next">❯</button>
+        </div>
+
+        <!-- Impact of User Feedback Section -->
+        <div class="impact-section">
+            <h2>Our Commitment to You</h2>
+            <p class="commitment-text">
+                We value every piece of feedback. Your testimonials not only inspire us but also help us enhance our services and tailor our offerings to better meet your needs.
+            </p>
+        </div>
+
+        <button id="submit-testimonial" class="submit-button">Share Your Experience</button>
+    </div>
+    </div>
+    <!-- About Us Modal -->
+    <div id="about-us-modal" class="modal about-us-modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>About Us</h3>
+        <p>Welcome to <strong>InvestSmart Advisors</strong>, founded by Varad Lakhotiya. We empower individuals to achieve their financial goals through expert insights and tailored investment strategies.</p>
+        <h4>Mission</h4>
+        <p>Our mission is to demystify investing and equip you with tools to build a brighter financial future.</p>
+        <h4>Core Values</h4>
+        <ul>
+            <li>Trust</li>
+            <li>Transparency</li>
+            <li>Client-Centric Solutions</li>
+        </ul>
+        <h4>Our Team</h4>
+        <p>With a team of seasoned experts, InvestSmart Advisors is here to guide you through every step of your financial journey.</p>
+        <h4>Achievements</h4>
+        <p>Proudly serving over 5,000 clients and rated among the top financial advisors in 2023.</p>
+        
+        <!-- Contact Us Link -->
+        <h4>Contact Us</h4>
+        <button id="contact-us-button">Get in Touch</button>
+        
+        <!-- Contact Form (Initially Hidden) -->
+        <div id="contact-form" class="contact-form">
+            <span class="form-close">&times;</span>
+            <h4>Contact Form</h4>
+            <form id="contact-form-content">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4" required></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    </div>
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal settings-modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-settings-modal">&times;</span>
+        <h1>Settings</h1>
+
+        <div class="settings-options">
+            <h2>Customization</h2>
+            <ul>
+                <li><a href="#" id="theme-settings">Theme Customization</a></li>
+                <li><a href="#" id="notification-preferences">Notification Preferences</a></li>
+                <li><a href="#" id="accessibility-options">Accessibility Options</a></li>
+            </ul>
+
+            <h2>Privacy & Security</h2>
+            <ul>
+                <li><a href="#" id="privacy-settings">Privacy Settings</a></li>
+                <li><a href="#" id="security-settings">Security Settings</a></li>
+                <li><a href="#" id="account-deletion">Account Management</a></li>
+            </ul>
+
+            <h2>Personalization</h2>
+            <ul>
+                <li><a href="#" id="investment-preferences">Investment Preferences</a></li>
+            </ul>
+
+            <h2>General</h2>
+            <ul>
+                <li><a href="#" id="language-settings">Language and Region</a></li>
+                <li><a href="#" id="data-backup">Data Backup and Restore</a></li>
+                <li><a href="#" id="data-export">Data Export</a></li>
+            </ul>
+
+            <h2>Support</h2>
+            <ul>
+                <li><a href="#" id="help-center">Help Center</a></li>
+                <li><a href="#" id="system-notifications">System Notifications</a></li>
+            </ul>
+        </div>
+
+        <button id="apply-settings" class="submit-button">Apply Changes</button>
+    </div>
+    </div>
+
+
+
+    <!-- Floating Elements Container -->
+    <div class="floating-container">
+        <div class="floating-element" onclick="showFundInsights()">
+            <i class="icon">📈</i>
+            <span class="tooltip">Fund Insights & News</span>
+        </div>
+        <div class="floating-element" onclick="activateVoiceAssistant()">
+            <i class="icon">🎤</i>
+            <span class="tooltip">Voice Assistant</span>
+        </div>
+    </div>
+    <!-- Fund Insights Modal -->
+    <div id="fundInsightsModal" class="modal">
+        <div class="modal-content-insights">
+            <span class="close" onclick="closeModal('fundInsightsModal')">&times;</span>
+            <h2>Fund Insights & News</h2>
+            <h3>Top Large-Cap Mutual Funds in India</h3>
+            <div class="flashcards-container">
+                <div class="flashcard">
+                    <h4>SBI Bluechip Fund</h4>
+                    <p><strong>AUM:</strong> ₹29,000 Crore</p>
+                    <p><strong>1-Year Return:</strong> 12%</p>
+                    <p><strong>5-Year Return:</strong> 14%</p>
+                    <p>This fund focuses on large, established companies with strong growth potential.</p>
+                </div>
+                <div class="flashcard">
+                    <h4>ICICI Prudential Bluechip Fund</h4>
+                    <p><strong>AUM:</strong> ₹32,000 Crore</p>
+                    <p><strong>1-Year Return:</strong> 11.5%</p>
+                    <p><strong>5-Year Return:</strong> 15%</p>
+                    <p>Known for a diversified portfolio, this fund consistently performs in the top quartile.</p>
+                </div>
+                <div class="flashcard">
+                    <h4>Axis Bluechip Fund</h4>
+                    <p><strong>AUM:</strong> ₹29,500 Crore</p>
+                    <p><strong>1-Year Return:</strong> 13%</p>
+                    <p><strong>5-Year Return:</strong> 16%</p>
+                    <p>A stable choice with exposure to top-performing large-cap companies.</p>
+                </div>
+            </div>
+            <h3>Market News</h3>
+            <p>Recent market trends show a positive outlook for large-cap funds, especially in sectors like technology and healthcare. Investors are recommended to keep a balanced portfolio with exposure to these sectors.</p>
+            <h3>Investment Tip</h3>
+            <p>Large-cap funds typically offer stability over the long term. Consider maintaining at least 20% of your portfolio in large-cap funds if your goal is steady growth with lower volatility.</p>
+        </div>
+    </div>
+    <!-- Voice Assistant Modal -->
+    <div id="voiceAssistantModal" class="modal">
+        <div class="modal-content-voice">
+            <span class="close" onclick="closeModal('voiceAssistantModal')">&times;</span>
+            <h2>Voice Assistant Activation</h2>
+            <h3>How to Use Voice Commands</h3>
+            <p>Our voice assistant helps you access fund information hands-free! Here are a few commands you can try:</p>
+            <ul>
+                <li><strong>"Show top large-cap funds"</strong> - Displays a list of top-performing large-cap funds.</li>
+                <li><strong>"What is the performance of SBI Bluechip Fund?"</strong> - Get the latest performance details for the specified fund.</li>
+                <li><strong>"Add ICICI Prudential Bluechip Fund to my watchlist"</strong> - Instantly add a fund to your watchlist.</li>
+                <li><strong>"Compare SBI Bluechip Fund with Axis Bluechip Fund"</strong> - Get a side-by-side comparison of the two funds.</li>
+            </ul>
+            <h3>Voice Activation Tip</h3>
+            <p>For best results, speak clearly and use full fund names where possible. The assistant is continually learning, so stay tuned for updates!</p>
+        </div>
+    </div>
+
+
+    <!--Header Modals-->
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>We Value Your Feedback</h2>
+        </div>
+        <div class="feedback-body">
+            <p class="feedback-description">Your experience matters to us! Please take a moment to let us know about any issues you've encountered or share your suggestions. Your insights are invaluable in helping us enhance our services and offerings.</p>
+            <textarea placeholder="Describe your problem or share your thoughts..." class="feedback-textarea"></textarea>
+            <p class="optional-feedback">(Optional) If you're comfortable, please provide your email address for follow-up:</p>
+            <input type="email" placeholder="Your Email (optional)" class="feedback-email" />
+        </div>
+        <div class="modal-footer">
+            <button class="send-feedback">Send Feedback</button>
+            <button class="feedback-cancel">Cancel</button>
+        </div>
+    </div>
+    </div>
+    <!-- Logout Modal -->
+    <div id="logout-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Log Out</h2>
+            <button id="close-logout-modal" class="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <p>Are you sure you want to log out? Any unsaved changes will be lost.</p>
+        <p>Please remember to log out when using public or shared computers for your security.</p>
+        <div class="modal-actions">
+            <button class="logout-confirm">Log Out</button>
+            <button class="cancel-btn">Cancel</button>
+        </div>
+        <div class="modal-footer">
+            <p>If you experience any issues, please contact support.</p>
+        </div>
+    </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Expert Consultation | Secure Your Financial Future</title>
+  <style>
+    /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    background-color: #2d3b45; /* Darker background for a professional look */
+    color: #ecf0f1; /* Light text for better contrast */
+    line-height: 1.6;
+    font-size: 16px; /* Improved base font size for better readability */
+}
+
+/* Hero Section */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff; /* Ensuring white text is visible */
+    animation: fadeIn 1s ease-out;
+}
+p {
+    font-size: 1.2rem;
+    margin: 20px auto;
+    max-width: 800px;
+    color: #ffffff; /* White text for better contrast */
+    animation: fadeIn 1.5s ease-out;
+}
+.btn {
+    background-color: #3498db; /* Professional blue background */
+    color: white;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+.btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+
+/* About Us Section */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #34495e; /* Dark slate gray */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+h2 {
+    font-size: 2.5rem;
+    color: #ecf0f1; /* Light text for clarity */
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-out;
+}
+p {
+    font-size: 1.2rem;
+    color: #bdc3c7; /* Soft grey text for better readability */
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 1.5s ease-out;
+}
+
+
+/* Metrics Section */
+.metrics {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding: 40px 20px;
+    background-color: #1abc9c; /* Teal background for vibrancy */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.metric {
+    text-align: center;
+    flex: 1;
+    animation: fadeIn 1s ease-out;
+}
+.metric img {
+    width: 50px;
+    margin-bottom: 10px;
+}
+.metric p {
+    font-size: 1.4rem;
+    color: #ecf0f1; /* Light text for clarity */
+    font-weight: 700;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay to focus on modal content */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+/* Modal Content */
+.modal-content {
+    background-color: #34495e; /* Dark grey background for modern, professional feel */
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 900px;
+    width: 90%;
+    text-align: center;
+    color: #ecf0f1; /* Light text color for contrast */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideUp 0.5s ease-in-out;
+    max-height: 90%; /* Ensures the modal content does not exceed the viewport */
+    overflow-y: auto; /* Adds internal scroll if content exceeds the modal height */
+    padding-bottom: 50px; /* To ensure scroll bar doesn't overlap content */
+}
+/* Close Button Inside Modal */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #ecf0f1; /* Light color for close button */
+    transition: color 0.3s ease;
+}
+.close-btn:hover {
+    color: #e74c3c; /* Red color on hover */
+}
+/* Title and Description */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #3498db; /* Professional blue for title */
+}
+p {
+    font-size: 1.1rem;
+    color: #bdc3c7; /* Light grey for paragraph text */
+}
+/* Expert Card Container */
+.expert-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.expert-card {
+    background-color: #2c3e50; /* Darker grey for expert cards */
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #ecf0f1; /* Light text color */
+    position: relative;
+}
+
+.expert-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.expert-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.expert-card:hover img {
+    transform: scale(1.1); /* Slight zoom on hover for images */
+}
+
+.expert-card h3 {
+    font-size: 1.4rem;
+    color: #ecf0f1;
+    margin-bottom: 10px;
+}
+
+.expert-card p {
+    font-size: 1rem;
+    color: #bdc3c7; /* Lighter text for descriptions */
+}
+
+/* Consultation Form */
+.consultation-form {
+    display: none;
+    margin-top: 30px;
+    background-color: #1abc9c; /* Teal background for the form section */
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.consultation-form h3 {
+    font-size: 2rem;
+    color: #ecf0f1; /* Light text for form heading */
+    margin-bottom: 15px;
+}
+
+.consultation-form p {
+    font-size: 1.1rem;
+    color: #ecf0f1;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    color: #2c3e50; /* Dark text for inputs */
+    background-color: #ecf0f1; /* Light background for inputs */
+}
+
+input:focus, textarea:focus {
+    border-color: #3498db; /* Blue border on focus */
+    outline: none;
+}
+
+textarea {
+    height: 150px;
+}
+
+/* Submit Button */
+.consultation-form .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db; /* Blue button */
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white; /* White text for button */
+    transition: background-color 0.3s ease;
+}
+
+.consultation-form .btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+/* Testimonial Section */
+.testimonial-carousel {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #34495e; /* Dark slate gray */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+.testimonial {
+    margin: 20px 0;
+    font-style: italic;
+    color: #bdc3c7; /* Soft dark grey for readability */
+}
+.testimonial p {
+    font-size: 1.2rem;
+}
+.testimonial p:last-child {
+    font-weight: bold;
+    color: #3498db; /* Highlighting with a professional blue */
+}
+
+
+
+/* Consultation Process Timeline */
+.consultation-steps {
+    padding: 40px 20px;
+    background-color: #34495e; /* Dark slate gray */
+    text-align: center;
+    animation: fadeIn 1.5s ease-out;
+}
+.step {
+    display: inline-block;
+    width: 22%;
+    margin: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+.step img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+.step h4 {
+    font-size: 1.4rem;
+    color: #ecf0f1; /* Light text for clarity */
+}
+.step p {
+    font-size: 1rem;
+    color: #bdc3c7; /* Soft grey */
+}
+/* Key Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@media screen and (max-width: 768px) {
+    .metrics {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .metric {
+        margin-bottom: 20px;
+    }
+
+    .expert-card-container {
+        flex-direction: column;
+    }
+
+    .expert-card {
+        width: 80%;
+        margin: 15px auto;
+    }
+
+    .consultation-steps {
+        padding: 30px 20px;
+    }
+
+    .step {
+        width: 80%;
+        margin: 20px auto;
+    }
+}
+
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Empower Your Financial Future with Expert Guidance</h1>
+        <p>Our top-tier financial advisors are here to help you make informed decisions on investments, tax planning, retirement strategies, and wealth management. Start building a financially secure future today with tailored, professional advice that fits your unique goals.</p>
+        <!-- Button to trigger modal opening -->
+        <button class="btn primary-btn" onclick="openModal()">Connect with an Expert</button>
+    </div>
+    <!-- About Us Section -->
+    <div class="section">
+        <h2>About Our Advisory Team</h2>
+        <p>With over 30 years of combined expertise in Indian financial markets, our certified consultants are passionate about providing accessible, high-quality guidance to individuals and businesses. Our goal is to empower you to achieve long-term security and financial independence through sound advice and personalized strategies. Specializing in personal finance, corporate financial structuring, and sustainable wealth growth, we are committed to your success.</p>
+    </div>
+    <!-- Metrics Section -->
+    <div class="metrics">
+        <div class="metric">
+          <img src="icon-clients.png" alt="Clients Icon">
+          <p><strong>500+</strong> Clients Served</p>
+        </div>
+        <div class="metric">
+          <img src="icon-experience.jpeg" alt="Experience Icon">
+          <p><strong>30+</strong> Years of Combined Experience</p>
+        </div>
+        <div class="metric">
+          <img src="icon-roi.png" alt="ROI Icon">
+          <p><strong>20%</strong> Avg. ROI</p>
+        </div>
+    </div>
+    <!-- Testimonial Carousel -->
+    <div class="testimonial-carousel">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial">
+          <p>"Thanks to Rajesh’s investment strategies, I’ve seen significant growth in my portfolio!"</p>
+          <p>- Aman S., Mumbai</p>
+        </div>
+        <div class="testimonial">
+          <p>"Anita’s retirement advice was just what I needed to feel secure for the future."</p>
+          <p>- Neha K., Delhi</p>
+        </div>
+    </div>
+    <!-- Expert Consultation Modal -->
+    <div id="expertConsultationModal" class="modal">
+        <div class="modal-content">
+            <!-- Close Button -->
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h2>Choose Your Financial Consultant</h2>
+            <p>Select the expert whose experience aligns best with your goals and schedule a personalized consultation.</p>
+            
+            <!-- Expert Cards Section -->
+            <div class="expert-card-container">
+                <div class="expert-card" onclick="selectExpert('EY (Ernst & Young)', 'Financial Advisory, Tax Consulting, Auditing')">
+                    <img src="ey-logo.png" alt="EY" class="expert-photo">
+                    <h3>EY (Ernst & Young)</h3>
+                    <p><strong>Expertise:</strong> Financial Advisory, Tax Consulting, Auditing</p>
+                    <p class="experience"><strong>Experience:</strong> Global Leader with 30+ years of expertise</p>
+                    <p class="company-info">EY is known for its exceptional advisory services across risk management, governance, and financial transactions. They help businesses thrive in today's dynamic economic landscape.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('PwC (PricewaterhouseCoopers)', 'Audit, Tax Advisory, Management Consulting')">
+                    <img src="pwc-logo.png" alt="PwC" class="expert-photo">
+                    <h3>PwC (PricewaterhouseCoopers)</h3>
+                    <p><strong>Expertise:</strong> Audit, Tax Advisory, Management Consulting</p>
+                    <p class="experience"><strong>Experience:</strong> 30+ years, globally recognized</p>
+                    <p class="company-info">PwC offers comprehensive financial consulting services, from audit to tax advisory, helping businesses grow with personalized financial solutions.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('Deloitte', 'Audit, Tax, Consulting, Advisory')">
+                    <img src="deloitte-icon.png" alt="Deloitte" class="expert-photo">
+                    <h3>Deloitte</h3>
+                    <p><strong>Expertise:</strong> Audit, Tax, Consulting, Advisory</p>
+                    <p class="experience"><strong>Experience:</strong> Over 30 years of industry experience</p>
+                    <p class="company-info">Deloitte provides end-to-end solutions for financial strategy, tax management, and advisory, helping clients optimize their financial operations globally.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('McKinsey & Company', 'Strategic Financial Consulting')">
+                    <img src="mckinsey-logo.png" alt="McKinsey" class="expert-photo">
+                    <h3>McKinsey & Company</h3>
+                    <p><strong>Expertise:</strong> Strategic Financial Consulting</p>
+                    <p class="experience"><strong>Experience:</strong> Leading global consulting firm with 50+ years in financial strategy</p>
+                    <p class="company-info">McKinsey is renowned for delivering exceptional insights into financial strategy, helping organizations navigate complex challenges and optimize their growth strategies.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('KPMG', 'Audit, Tax, Digital Transformation')">
+                    <img src="kpmg-logo.jpeg" alt="KPMG" class="expert-photo">
+                    <h3>KPMG</h3>
+                    <p><strong>Expertise:</strong> Audit, Tax, Digital Transformation</p>
+                    <p class="experience"><strong>Experience:</strong> 30+ years of global consulting expertise</p>
+                    <p class="company-info">KPMG specializes in digital financial solutions, audit, and risk management, helping clients modernize their processes and manage emerging financial challenges.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('Accenture', 'Digital Finance, Consulting, Advisory')">
+                    <img src="accenture-logo.png" alt="Accenture" class="expert-photo">
+                    <h3>Accenture</h3>
+                    <p><strong>Expertise:</strong> Digital Finance, Consulting, Advisory</p>
+                    <p class="experience"><strong>Experience:</strong> 30+ years in innovative financial solutions</p>
+                    <p class="company-info">Accenture provides financial consulting that combines deep industry knowledge with advanced technology, helping organizations achieve superior financial performance.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('Grant Thornton', 'Financial Risk Management, Audit, Advisory')">
+                    <img src="grant-thornton-logo.jpeg" alt="Grant Thornton" class="expert-photo">
+                    <h3>Grant Thornton</h3>
+                    <p><strong>Expertise:</strong> Financial Risk Management, Audit, Advisory</p>
+                    <p class="experience"><strong>Experience:</strong> 25+ years in financial consulting</p>
+                    <p class="company-info">Grant Thornton focuses on risk management, audit, and financial advisory, offering customized solutions to clients in diverse industries for long-term growth.</p>
+                </div>
+                <div class="expert-card" onclick="selectExpert('Bain & Company', 'Wealth Management, Financial Strategy')">
+                    <img src="bain-logo.jpeg" alt="Bain & Company" class="expert-photo">
+                    <h3>Bain & Company</h3>
+                    <p><strong>Expertise:</strong> Wealth Management, Financial Strategy</p>
+                    <p class="experience"><strong>Experience:</strong> Global leader with over 40 years of experience</p>
+                    <p class="company-info">Bain offers expert advisory in wealth management and financial strategy, helping clients align their financial goals with proven strategies for growth and stability.</p>
+                </div>
+            </div>
+    
+            <!-- Consultation Form Section -->
+            <div class="consultation-form" id="consultationForm" style="display:none;">
+                <h3 id="selectedExpert">Schedule Your Personalized Consultation</h3>
+                <p>Complete the form below to connect with your chosen expert. We’ll be in touch shortly to start crafting your financial journey.</p>
+                <form id="consultationFormFields">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                    <input type="email" id="email" placeholder="Your Email" required>
+                    <textarea id="goals" placeholder="Describe Your Financial Goals" required></textarea>
+                    <button type="button" class="btn primary-btn" onclick="submitForm()">Submit & Schedule</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Consultation Process Timeline -->
+    <div class="consultation-steps">
+        <h2>Our Consultation Process</h2>
+        <div class="step">
+            <img src="icon-select.jpeg" alt="Select Expert Icon">
+            <h4>Step 1: Select Your Expert</h4>
+            <p>Choose an advisor whose expertise best suits your needs.</p>
+        </div>
+        <div class="step">
+            <img src="icon-book.png" alt="Book Consultation Icon">
+            <h4>Step 2: Book Your Consultation</h4>
+            <p>Schedule a time to discuss your financial goals.</p>
+        </div>
+        <div class="step">
+            <img src="icon-goals.png" alt="Discuss Icon">
+            <h4>Step 3: Discuss Your Goals</h4>
+            <p>Have an in-depth consultation to align your financial goals with expert strategies.</p>
+        </div>
+        <div class="step">
+            <img src="icon-plan.png" alt="Plan Icon">
+            <h4>Step 4: Receive Your Personalized Plan</h4>
+            <p>Get a customized action plan to achieve your financial milestones.</p>
+        </div>
+    </div>
+    <script>
+        // Function to open the modal
+        function openModal() {
+            const modal = document.getElementById('expertConsultationModal');
+            modal.style.display = 'flex';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('expertConsultationModal');
+            modal.style.display = 'none';
+        }
+
+        // Function to select expert and show consultation form
+        function selectExpert(name, expertise) {
+            document.getElementById('selectedExpert').innerHTML = `Schedule Your Consultation with ${name}`;
+            document.querySelector('.consultation-form').style.display = 'block';
+            document.querySelector('.expert-card-container').style.display = 'none';
+        }
+
+        
+// Close the modal
+function closeModal() {
+    document.getElementById('expertConsultationModal').style.display = 'none';
+    location.reload(); // Refresh the page when the modal is closed
+}
+
+// Function to submit the form
+function submitForm() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const goals = document.getElementById('goals').value;
+    
+    if (!name || !email || !goals) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    alert('Form Submitted! We will get in touch soon.');
+    closeModal();  // Close the modal after form submission
+    
+    // Redirect to index.html after form submission
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+
+</html>

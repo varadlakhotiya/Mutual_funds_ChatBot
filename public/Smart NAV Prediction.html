@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart NAV Prediction - Mutual Fund Recommendation</title>
+  <style>
+    /* Reset default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      color: #1e3a8a;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 36px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #3b82f6;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      color: #1d4ed8;
+    }
+
+    /* Container Styling */
+    .container {
+      width: 80%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    .section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    /* Input Form Styling */
+    label {
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    select.input-field {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 2px solid #d1d5db;
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    select.input-field:focus {
+      outline: none;
+      border-color: #4b6ef7;
+    }
+
+    button.button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button.button:hover {
+      background-color: #2563eb;
+    }
+
+    /* Result Box Styling */
+    .result-box {
+      background-color: #e0f7fa;
+      padding: 25px;
+      border-radius: 8px;
+      display: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #1e40af;
+    }
+
+    .result-box p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e3a8a;
+      color: white;
+      font-size: 14px;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+      }
+
+      button.button {
+        width: 100%;
+      }
+
+      .footer {
+        position: relative;
+      }
+    }
+    /* Back to Homepage Button */
+    .back-home {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+      
+      .back-home:hover {
+        background-color: #388e3c;
+      }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <h1>Smart NAV Prediction</h1>
+    <div class="section">
+      <h2>Welcome to our Smart NAV Prediction Tool!</h2>
+      <p>This tool uses Artificial Neural Networks (ANN) to predict the future NAV of your favorite mutual funds. Please answer the following questions so we can provide you with a data-driven prediction.</p>
+
+      <!-- User Input Form -->
+      <div id="userInputForm">
+        <h3>Please answer the following questions:</h3>
+        <label for="riskLevel">What is your risk tolerance?</label>
+        <select id="riskLevel" class="input-field">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <label for="investmentHorizon">What is your investment horizon?</label>
+        <select id="investmentHorizon" class="input-field">
+          <option value="short">Short-term (1-3 years)</option>
+          <option value="medium">Medium-term (3-5 years)</option>
+          <option value="long">Long-term (5+ years)</option>
+        </select>
+
+        <label for="fundChoice">Which fund are you interested in?</label>
+        <select id="fundChoice" class="input-field">
+          <option value="fundA">Fund A</option>
+          <option value="fundB">Fund B</option>
+          <option value="fundC">Fund C</option>
+          <option value="fundD">Fund D</option>
+          <option value="fundE">Fund E</option>
+          <option value="fundF">Fund F</option>
+          <option value="fundG">Fund G</option>
+          <option value="fundH">Fund H</option>
+        </select>
+
+        <button class="button" onclick="getNAVPrediction()">Get Smart Prediction</button>
+      </div>
+
+      <!-- Result Box -->
+      <div id="resultBox" class="result-box">
+        <h3>Recommended Fund Information:</h3>
+        <p id="predictionResult">Your future NAV prediction will appear here...</p>
+      </div>
+    </div>
+    <a href="Extra.html" class="back-home">Back to Homepage</a>
+  </div>
+
+  
+
+  <script>
+    // Simulated ANN Prediction Logic (For demo purposes)
+    function getNAVPrediction() {
+      const riskLevel = document.getElementById('riskLevel').value;
+      const investmentHorizon = document.getElementById('investmentHorizon').value;
+      const fundChoice = document.getElementById('fundChoice').value;
+      
+      // Simulate ANN output (replace with real ANN logic in a real app)
+      let predictionMessage = '';
+      let fundInfo = '';
+
+      // Example prediction logic based on user inputs
+      if (fundChoice === "fundA") {
+        if (riskLevel === "high" && investmentHorizon === "long") {
+          predictionMessage = 'Your future NAV for Fund A is predicted to grow by 15% over the next 5 years.';
+          fundInfo = 'Fund A is a high-risk, long-term growth fund with a strong performance history.';
+        } else if (riskLevel === "medium" && investmentHorizon === "medium") {
+          predictionMessage = 'Fund A is predicted to give a stable return of 8% over the next 3 years.';
+          fundInfo = 'Fund A is a balanced fund suitable for medium-risk investors.';
+        } else {
+          predictionMessage = 'Fund A is a safer choice for conservative investors, with a 5% predicted return over 1 year.';
+          fundInfo = 'Fund A has low risk and is ideal for short-term investors.';
+        }
+      }
+      // Repeat similar logic for other funds (fundB, fundC, etc.)
+
+      // Show prediction result
+      document.getElementById('predictionResult').innerHTML = `
+        <strong>Fund Name:</strong> ${fundChoice.toUpperCase()}<br>
+        <strong>Prediction:</strong> ${predictionMessage}<br><br>
+        <strong>Fund Info:</strong> ${fundInfo}
+      `;
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
