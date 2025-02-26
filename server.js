@@ -4,25 +4,24 @@ const cors = require('cors');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const axios = require('axios'); // For making requests to the Flask API
-
+require('dotenv').config(); // Load environment variables
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use environment variable or default to 3000
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-
 // Create MySQL database connection
-require('dotenv').config(); // Load environment variables
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
+
 // Establish connection to the MySQL database
 db.connect((err) => {
     if (err) {
@@ -32,10 +31,8 @@ db.connect((err) => {
     console.log('Connected to MySQL database!');
 });
 
-
 // Create a secret key for JWT
-const JWT_SECRET = 'Varad@2004'; // Change this to a secure random key
-
+const JWT_SECRET = process.env.JWT_SECRET; // Load from environment variable
 
 // Create the 'users' table if it doesn't already exist
 const createTableQuery = `
@@ -48,6 +45,7 @@ db.query(createTableQuery, (err) => {
     if (err) throw err;
     console.log('Users table created or already exists.');
 });
+
 // Registration endpoint
 app.post('/register', (req, res) => {
     const { name, email } = req.body;
@@ -78,6 +76,7 @@ app.post('/register', (req, res) => {
         });
     });
 });
+
 // Login endpoint
 app.post('/login', (req, res) => {
     const { email } = req.body;
@@ -102,6 +101,7 @@ app.post('/login', (req, res) => {
         }
     });
 });
+
 // Middleware to verify JWT
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
@@ -113,6 +113,7 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
+
 // Protected endpoint for submitting fund details
 app.post('/submit-fund-details', authenticateToken, (req, res) => {
     const { fundName, investmentAmount, investmentDate, investmentDuration, riskLevel, expectedReturn } = req.body;
@@ -141,6 +142,7 @@ app.post('/submit-fund-details', authenticateToken, (req, res) => {
         res.send('Mutual fund details saved successfully.');
     });
 });
+
 // Endpoint to get mutual fund details for the authenticated user
 app.get('/fund-details', authenticateToken, (req, res) => {
     const userId = req.user.id; // Get user ID from the token
@@ -171,6 +173,7 @@ app.get('/fund-details', authenticateToken, (req, res) => {
         });
     });
 });
+
 // Protected endpoint for fetching recent transactions
 app.get('/recent-transactions', authenticateToken, (req, res) => {
     const userId = req.user.id; // Get user ID from the token
@@ -196,6 +199,7 @@ app.get('/recent-transactions', authenticateToken, (req, res) => {
         res.json(results);
     });
 });
+
 // Protected endpoint for fetching personalized insights
 app.get('/personalized-insights', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -232,6 +236,7 @@ app.get('/personalized-insights', authenticateToken, (req, res) => {
         res.json({ insights: insightsMessage });
     });
 });
+
 // Protected endpoint for submitting watchlist details
 app.post('/submit-watchlist-details', authenticateToken, (req, res) => {
     const { fund_name, fund_type, investment_goal, timeframe_years, risk_level } = req.body;
@@ -260,6 +265,7 @@ app.post('/submit-watchlist-details', authenticateToken, (req, res) => {
         res.send('Watchlist details saved successfully.');
     });
 });
+
 // Protected endpoint for fetching watchlist data
 app.get('/watchlist-data', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -283,6 +289,7 @@ app.get('/watchlist-data', authenticateToken, (req, res) => {
         res.json(results);
     });
 });
+
 // Protected endpoint for fetching performance data
 app.get('/performance-data', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -307,6 +314,7 @@ app.get('/performance-data', authenticateToken, (req, res) => {
         res.json(results);
     });
 });
+
 // Protected endpoint for fetching comparative analysis data
 app.get('/comparative-analysis-data', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -340,8 +348,8 @@ app.post('/query', async (req, res) => {
 
     try {
         // Forward the user query to the Python NLP API
-        const response = await axios.post('http://127.0.0.1:5000/analyze', { query: userInput });
-
+        const FLASK_API_URL = process.env.FLASK_API_URL || 'http://127.0.0.1:5000';
+        const response = await axios.post(`${FLASK_API_URL}/analyze`, { query: userInput });
 
         // Extract intent, entities, and data from the Python API's response
         const { intent, entities, data } = response.data;
