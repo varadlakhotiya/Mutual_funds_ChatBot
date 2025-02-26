@@ -16,11 +16,12 @@ app.use(express.static('public'));
 
 
 // Create MySQL database connection
+require('dotenv').config(); // Load environment variables
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Varad@2004',
-    database: 'mutual_funds',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 // Establish connection to the MySQL database
 db.connect((err) => {
