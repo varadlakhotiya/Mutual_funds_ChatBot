@@ -1,8 +1,0 @@
-AMC,Code,Scheme Category,Scheme Type,Risk Level,Age Group,Investment Duration,Tags
-SBI,100001,Equity Scheme - PSU Fund,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['sbi', 'openended', 'equityschemepsufund', 'highrisk', 'younginvestors20s30s', 'longterm']"
-ICICI,100002,Equity Scheme - Fund of Funds,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['icici', 'openended', 'equityschemefundoffunds', 'highrisk', 'younginvestors20s30s', 'longterm']"
-HDFC,100003,Equity Scheme - Focused Fund,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['hdfc', 'openended', 'equityschemefocusedfund', 'highrisk', 'younginvestors20s30s', 'longterm']"
-Bank,100004,Hybrid Scheme - Mid and Small Cap Fund,Open Ended,Very High-Risk,General,Long-Term,"['bank', 'openended', 'hybridschememidandsmallcapfund', 'veryhighrisk', 'general', 'longterm']"
-HSBC,100005,Hybrid Scheme - Equity Savings Fund,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['hsbc', 'openended', 'hybridschemeequitysavingsfund', 'highrisk', 'younginvestors20s30s', 'longterm']"
-Kotak,100006,Hybrid Scheme - Equity Savings Fund,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['kotak', 'openended', 'hybridschemeequitysavingsfund', 'highrisk', 'younginvestors20s30s', 'longterm']"
-Nippon,100007,Equity Scheme - Large Cap Fund,Open Ended,High-Risk,Young Investors (20s-30s),Long-Term,"['nippon', 'openended', 'equityschemelargecapfund', 'highrisk', 'younginvestors20s30s', 'longterm']"
