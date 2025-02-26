@@ -7,11 +7,6 @@ CREATE TABLE users (
     email VARCHAR(100) UNIQUE NOT NULL
 );
 SHOW TABLES;
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Varad@2004';
-FLUSH PRIVILEGES;
-SELECT * FROM users;
-TRUNCATE users;
 -- Create MutualFunds Table
 CREATE TABLE MutualFunds (
     fund_id INTEGER PRIMARY KEY AUTO_INCREMENT,
